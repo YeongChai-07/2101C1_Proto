@@ -1,0 +1,22 @@
+html {
+  font-family: sans-serif;
+  -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+}
+
+memberName{
+    float: left;
+}
+memberList{
+    width: 10px;
+}
+searchside{
+    float: right;
+}
+search{
+    width: 30;
+    float: right;
+}
