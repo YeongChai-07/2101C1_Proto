@@ -9,10 +9,10 @@
     </head>
     <body class="container-fluid">
         <ul class="nav nav-tabs">
-            <li><a href="./ItemList.html">Item</a></li>
+            <li><a href="./ItemList.php">Item</a></li>
             <li><a href="./ShoppingList.html">Shopping</a></li>
             <li class="active"><a href="#">Groups</a></li>
-            <li><a href="./Settings.html">Settings</a></li>
+            <li><a href="./Settings.php">Settings</a></li>
         </ul>
         <div id='memberName' class="container-fluid" style="float: left; margin: 5px; position: relative; width: 400px">
             <br/>
@@ -87,7 +87,7 @@
                         <h4 class="modal-title" id="myModalLabel">View List</h4>
                     </div>
                     <div class="modal-body">
-                        <p>Content</p>
+                        <p>No list shared yet!</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -103,7 +103,24 @@
                         <h4 class="modal-title" id="myModalLabel">Share List</h4>
                     </div>
                     <div class="modal-body">
-                        <p>Content</p>
+                        <table>
+                            <tr>
+                                <td>My Family</td>
+                                <td><button>Share</button></td>
+                            </tr>
+                            <tr>
+                                <td>Chocolate cake</td>
+                                <td><button>Share</button></td>
+                            </tr>
+                            <tr>
+                                <td>Games 2015</td>
+                                <td><button>Share</button></td>
+                            </tr>
+                            <tr>
+                                <td>My stash</td>
+                                <td><button>Share</button></td>
+                            </tr>
+                        </table>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
