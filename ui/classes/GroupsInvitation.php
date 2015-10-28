@@ -24,7 +24,7 @@
 					echo "\r\n";
 				}
 				echo "<tr>
-						<td><a href="GroupInfo.php"><strong>".$this->currGrp_Name[$currGrp_Count]."</strong></a></td>
+						<td><a href=\"GroupInfo.php\"><strong>".$this->currGrp_Name[$currGrp_Count]."</strong></a></td>
 						<td>
 						    <span class=\"glyphicon glyphicon-remove\"></span>
 						    <!-- Change X to icon -->
