@@ -10,7 +10,7 @@
     <body class="container-fluid">
         <ul class="nav nav-tabs">
             <li><a href="./ItemList.php">Item</a></li>
-            <li><a href="./ShoppingList.html">Shopping</a></li>
+            <li><a href="./ShoppingList.php">Shopping</a></li>
             <li class="active"><a href="./GroupInfo.php">Groups</a></li>
             <li><a href="./Settings.php">Settings</a></li>
         </ul>
@@ -51,14 +51,37 @@
                 </table>
             </div>
         </div>
+        <script>
+                    function checkEmptyName(){
+                        var NameInput=document.forms["newNameForm"]["newName"].value;
+                        if(NameInput=="")
+                          {
+                          alert("Username can't be empty!");
+                          return false;
+                          }
+                        return true;
+                        }
+                    function adduser(){
+                        //var userInput=document.forms["newNameForm"]["newName"].value;
+                        var userInput='10';
+                        console.log(userInput);
+                        var output = document.getElementById('search');
+                        var ele = document.createElement("div");
+                        ele.innerHTML= userInput;
+                        output.appendChild(ele);
+                    }
+        </script>
         <div id='searchside' class = container-fluid style="float: left; margin: 5px; position: relative; width: 400px">
             <br>
             <a href="./Groups.php" class="btn btn-danger" role="button" style="float: right">Back</a>
             <br><br>
             <br>
             <h3>Search Users</h3>
-            <input name='search' id ='search' type="text" class="form-control" placeholder="Search">
-            <button id='adduser'class="btn btn-primary btn-md" ><strong>ADD</strong></button>
+            <form name='newNameForm' onsubmit="return checkEmptyName();">
+                <input name='newName' id ='search' type="text" class="form-control" placeholder="Search">
+                <button id='adduser' class="btn btn-primary btn-md" onclick="adduser();" ><strong>ADD</strong></button>
+            </form>
+            
             
             <br>
             <h5>Pending requests</h5>
@@ -79,20 +102,21 @@
                             <td>Cena</td>
                             <td><button class="btn-danger" onclick="$('#2row').toggle();"><span class="glyphicon glyphicon-remove"></span></button></td>
                         </tr>
+                        
                         <?php
-                        $x = 0;
-                        $y = 0;
-                        while($x < $y ) {
-                        echo '<tr>';
-                        echo '<td> ';
-                        echo $_GET['adduser'];
-                        echo '</td>';
-                        echo '<td> ';
-                        echo '<button class="btn-danger"><span class="glyphicon glyphicon-remove"></span></button>';
-                        echo '</td>';
-                        echo '</tr> ';
-                        $x++;
-                        }
+                        if (isset($_GET["newName"])){
+                            echo '<tr id="3row">';
+                            echo '<td> ';
+                            echo $_GET['newName'];
+                            echo '</td>';
+                            echo '<td>';
+                            echo '<button class="btn-danger" '?> onclick="$('#3row').toggle();">
+                    <?php
+                            echo '<span class="glyphicon glyphicon-remove"></span></button>';
+                            echo '</td>';
+                            echo '</tr>';
+                            
+                            }  
                         ?>
                     </tbody>
                 </table>
