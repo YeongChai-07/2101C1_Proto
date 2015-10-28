@@ -44,8 +44,8 @@
 		<ul class="nav nav-tabs">
 		    <li class="active"><a href="#">Item</a></li>
 			<li><a href="./ShoppingList.html">Shopping</a></li>
-			<li><a href="./Groups.html">Groups</a></li>
-			<li><a href="./Settings.html">Settings</a></li>
+                        <li><a href="./Groups.php">Groups</a></li>
+                        <li><a href="./Settings.php">Settings</a></li>
 		</ul>
 		<div class="container">
 		    <br/><br/><br/><br/>

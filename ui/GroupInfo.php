@@ -11,7 +11,7 @@
         <ul class="nav nav-tabs">
             <li><a href="./ItemList.php">Item</a></li>
             <li><a href="./ShoppingList.html">Shopping</a></li>
-            <li class="active"><a href="#">Groups</a></li>
+            <li class="active"><a href="./GroupInfo.php">Groups</a></li>
             <li><a href="./Settings.php">Settings</a></li>
         </ul>
         <div id='memberName' class="container-fluid" style="float: left; margin: 5px; position: relative; width: 400px">
@@ -32,30 +32,34 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr id="1namerow">
                             <td>Johnny</td>
                             <td>Admin</td>
                             <td></td>
                         </tr>
-                        <tr>
+                        <tr id="2namerow">
                             <td>Mary</td>
                             <td>-</td>
-                            <td><button><span class="glyphicon glyphicon-remove"></span></button></td>
+                            <td><button class="btn-danger" onclick="$('#2namerow').toggle();"><span class="glyphicon glyphicon-remove"></span></button></td>
                         </tr>
-                        <tr>
+                        <tr id="3namerow">
                             <td>July</td>
                             <td>-</td>
-                            <td><button><span class="glyphicon glyphicon-remove"></span></button></td>
+                            <td><button class="btn-danger" onclick="$('#3namerow').toggle();"><span class="glyphicon glyphicon-remove"></span></button></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
         <div id='searchside' class = container-fluid style="float: left; margin: 5px; position: relative; width: 400px">
-            <br><br><br><br>
+            <br>
+            <a href="./Groups.php" class="btn btn-danger" role="button" style="float: right">Back</a>
+            <br><br>
+            <br>
             <h3>Search Users</h3>
             <input name='search' id ='search' type="text" class="form-control" placeholder="Search">
-            <button id='adduser' >ADD</button>
+            <button id='adduser'class="btn btn-primary btn-md" ><strong>ADD</strong></button>
+            
             <br>
             <h5>Pending requests</h5>
             <div class='container-fluid'>
@@ -67,14 +71,29 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr id="1row">
                             <td>John</td>
-                            <td><button><span class="glyphicon glyphicon-remove"></span></button></td>
+                            <td><button class="btn-danger" onclick="$('#1row').toggle();"><span class="glyphicon glyphicon-remove"></span></button></td>
                         </tr>
-                        <tr>
+                        <tr id="2row">
                             <td>Cena</td>
-                            <td><button><span class="glyphicon glyphicon-remove"></span></button></td>
+                            <td><button class="btn-danger" onclick="$('#2row').toggle();"><span class="glyphicon glyphicon-remove"></span></button></td>
                         </tr>
+                        <?php
+                        $x = 0;
+                        $y = 0;
+                        while($x < $y ) {
+                        echo '<tr>';
+                        echo '<td> ';
+                        echo $_GET['adduser'];
+                        echo '</td>';
+                        echo '<td> ';
+                        echo '<button class="btn-danger"><span class="glyphicon glyphicon-remove"></span></button>';
+                        echo '</td>';
+                        echo '</tr> ';
+                        $x++;
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>
