@@ -6,6 +6,10 @@
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<?php
+		    include "./classes/GroupsInvitation.php";
+		    $grpInvite_Obj = new GroupsInvitation();
+		?>
 	</head>
 	<body class="container-fluid">
 		<ul class="nav nav-tabs">
@@ -24,20 +28,9 @@
 						<th>Assigned Group(s)</th>
 						<th>Exit Group</th>
 					  </tr>
-					  <tr>
-						<td>Family</td>
-						<td>
-						    <span class="glyphicon glyphicon-remove"></span>
-						    <!-- Change X to icon -->
-						</td>
-					  </tr>
-					  <tr>
-						<td>Friends</td>
-						<td>
-						    <span class="glyphicon glyphicon-remove"></span>
-						    <!-- Change X to icon -->
-						</td>
-					  </tr>
+					  <?php
+		                  $grpInvite_Obj -> outputAsCurrentGroups();
+		              ?>
 					  <tr>
 						<td>&nbsp;</td>
 						<td>&nbsp;</td>
@@ -68,30 +61,9 @@
 								<th>Accept Invitation</th>
 								<th>Decline Invitation</th>
 							</tr>
-							<tr>
-								<td>Family</td>
-								<td>
-									abc@email.com
-								</td>
-								<td>
-									<span class="glyphicon glyphicon-ok"></span>
-								</td>
-								<td>
-									<span class="glyphicon glyphicon-remove"></span>
-								</td>
-							</tr>
-							<tr>
-								<td>Friends</td>
-								<td>
-									bangHero@ymail.sg
-								</td>
-								<td>
-									<span class="glyphicon glyphicon-ok"></span>
-								</td>
-								<td>
-									<span class="glyphicon glyphicon-remove"></span>
-								</td>
-							</tr>
+							<?php
+                                $grpInvite_Obj->outputAsReceivedInvitations();							
+							?>
 						</table>
 					</div>
 			</div>
