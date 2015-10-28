@@ -12,7 +12,7 @@
 		    <li><a href="./ItemList.php">Item</a></li>
 			<li><a href="./ShoppingList.html">Shopping</a></li>
 			<li class="active"><a href="#">Groups</a></li>
-			<li><a href="./Settings.html">Settings</a></li>
+			<li><a href="./Settings.php">Settings</a></li>
 		</ul>
 		<div class="container">
 		    <p>&nbsp;</p>
@@ -24,23 +24,20 @@
 						<th>Assigned Group(s)</th>
 						<th>Exit Group</th>
 					  </tr>
+<!--                                          php while loop to echo all the group names and edit groupinfo page respectively-->
 					  <tr>
-						<td>Family</td>
+                                              <td><a href="GroupInfo.php"><strong>Family</strong></a></td>
 						<td>
 						    <span class="glyphicon glyphicon-remove"></span>
 						    <!-- Change X to icon -->
 						</td>
 					  </tr>
 					  <tr>
-						<td>Friends</td>
+						<td><a href="GroupInfo.php"><strong>Friends</strong></a></td>
 						<td>
 						    <span class="glyphicon glyphicon-remove"></span>
 						    <!-- Change X to icon -->
 						</td>
-					  </tr>
-					  <tr>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
 					  </tr>
 					</table>
 				</div>
