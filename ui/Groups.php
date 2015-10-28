@@ -17,23 +17,25 @@
 		<div class="container">
 		    <p>&nbsp;</p>
 			<div class="row">
-			    <div class="col-xs-6">
+			    <div class="col-xs-6 table-responsive">
 				    <label for="currGrp_List">Current Groups</label>
-					<table border = "1" id="currGrp_List">
+					<table class="table table-hover table-bordered" id="currGrp_List">
 					  <tr>
-						<th>BANG BANG BANG</th>
-						<th>&nbsp;</th>
+						<th>Assigned Group(s)</th>
+						<th>Exit Group</th>
 					  </tr>
 					  <tr>
 						<td>Family</td>
-						<td class ="glyphicon glyphicon-remove">
-						  <!-- Change X to icon -->
+						<td>
+						    <span class="glyphicon glyphicon-remove"></span>
+						    <!-- Change X to icon -->
 						</td>
 					  </tr>
 					  <tr>
 						<td>Friends</td>
-						<td class="glyphicon glyphicon-remove">
-						  <!-- Change X to icon -->
+						<td>
+						    <span class="glyphicon glyphicon-remove"></span>
+						    <!-- Change X to icon -->
 						</td>
 					  </tr>
 					  <tr>
@@ -57,9 +59,9 @@
 			    <div class="col-xs-12">&nbsp;</div>
 			</div>
 			<div class="row">
-			    <div class="col-xs-12">
+			    <div class="col-xs-12 table-responsive">
 					<label for="testTableData">Received Invitations</label>
-						<table border = "1" id="testTableData">
+						<table class="table table-hover table-bordered" id="testTableData">
 							<tr>
 								<th>Group Name</th>
 								<th>Email Address</th>
