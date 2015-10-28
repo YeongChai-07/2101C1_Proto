@@ -28,8 +28,8 @@
 						<th>Assigned Group(s)</th>
 						<th>Exit Group</th>
 					  </tr>
-
                       <!-- php while loop to echo all the group names and edit groupinfo page respectively-->
+					  
 					  <?php
 		                  $grpInvite_Obj -> outputAsCurrentGroups();
 		              ?>
