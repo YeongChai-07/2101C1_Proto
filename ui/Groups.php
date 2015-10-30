@@ -10,11 +10,32 @@
 		    include "./classes/GroupsInvitation.php";
 		    $grpInvite_Obj = new GroupsInvitation();
 		?>
+		<script>
+		    $(document).ready(function(){
+				$("#exitGrp00").click(function(){
+					$("#currGrp00").remove();
+					alert('Successfully exited from Family Group.');
+				});
+				$("#exitGrp01").click(function(){
+					$("#currGrp01").remove();
+					alert('Successfully exited from Friends Group.');
+				});
+				$("#acceptGrp00").click(function(){
+					$("#inviteGrp00").remove();
+					alert('You have accepted the invitation to Family Group.');
+				});
+				$("#declineGrp01").click(function(){
+					$("#inviteGrp01").remove();
+					alert('You have accepted the invitation to Friends Group.');
+				});
+				
+			});
+		</script>
 	</head>
 	<body class="container-fluid">
 		<ul class="nav nav-tabs">
 		    <li><a href="./ItemList.php">Item</a></li>
-			<li><a href="./ShoppingList.html">Shopping</a></li>
+			<li><a href="./ShoppingList.php">Shopping</a></li>
 			<li class="active"><a href="#">Groups</a></li>
 			<li><a href="./Settings.php">Settings</a></li>
 		</ul>

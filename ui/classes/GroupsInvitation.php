@@ -23,10 +23,10 @@
 				{
 					echo "\r\n";
 				}
-				echo "<tr>
+				echo "<tr id =\"currGrp0".$currGrp_Count."\">
 						<td><a href=\"GroupInfo.php\"><strong>".$this->currGrp_Name[$currGrp_Count]."</strong></a></td>
 						<td>
-						    <span class=\"glyphicon glyphicon-remove\"></span>
+						    <span id=\"exitGrp0".$currGrp_Count."\" class=\"glyphicon glyphicon-remove\"></span>
 						    <!-- Change X to icon -->
 						</td>
 					  </tr>";
@@ -42,14 +42,14 @@
 				{
 					echo "\r\n";
 				}
-				echo "<tr>
+				echo "<tr id =\"inviteGrp0".$rcvdInvite_Count."\">
 						<td>". $this->rcvdInviteGrp_Name[$rcvdInvite_Count]. "</td>
 						<td>". $this->rcvdInviteGrp_Email[$rcvdInvite_Count]. "</td>
 						<td>
-							<span class=\"glyphicon glyphicon-ok\"></span>
+							<span id=\"acceptGrp0".$rcvdInvite_Count."\" class=\"glyphicon glyphicon-ok\"></span>
 						</td>
 						<td>
-							<span class=\"glyphicon glyphicon-remove\"></span>
+							<span id=\"declineGrp0".$rcvdInvite_Count."\" class=\"glyphicon glyphicon-remove\"></span>
 						</td>
 					  </tr>";
 				$rcvdInvite_Count++;
