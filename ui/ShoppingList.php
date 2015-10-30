@@ -15,37 +15,16 @@ session_start();
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <script src="js/libs/twitter-bootstrap/"></script>
-        <script src="js/MobileGroceryListjs.js"></script>
+        
         <script>
                     function checkEmptyInput() {
                     var shoppingListQty = document.forms["newShoppingListItemForm"]["newShoppingListQty"].value
-                    var shoppingListDesc = document.forms["newShoppingListItemForm"]["newShoppingListDesc"].value
                         if (shoppingListQty == "") {
-                            alert("Your quantity can't be empty! Did you click on this by accident?");
-                            if (shoppingListDesc == ""){
-                                alert("Your description can't be empty! Did you click on this by accident?");
-                                return false;
-                            }
-                            else{
-                                return true;
-                            }
-                            
-                        }
-                        else if (shoppingListDesc == ""){
-                            alert("Your description can't be empty! Did you click on this by accident?");
-                            if (shoppingListQty == ""){
-                                alert("Your quantity can't be empty! Did you click on this by accident?");
-                                return false;
-                            }
-                            else{
-                                return true;
-                            }
-                           
-                        }
-                        else{
+                            alert("Your Quantity can't be empty. Please enter a value");
+                            return false
+                        }else{
                             return true;
                         }
-                    
                     }
 
         </script>
@@ -76,6 +55,39 @@ session_start();
             }
             .datepick-col {
                 padding-top: 2%;
+            }
+            #container-add {
+                padding-left:8%;
+            }
+            #h2-add {
+                padding-left:50%;
+            }
+            #dropdown-add {
+                height: auto; 
+                max-height: 250%; 
+                overflow-x: hidden;
+            }
+            #qtyCol {
+                padding-top:2%;
+            }
+            #descCol {
+                padding-top:4%;
+            }
+            #qtyBtn {
+                width:50px; 
+                height:50px;
+            }
+            #descTxtArea {
+                resize:none; 
+                height: 150px; 
+                width:200px;
+            }
+            #addBtnCol {
+                padding-left:15%;
+            }
+            #addBtn {
+                 width:80px; 
+                 height:50px;
             }
         </style>
 
@@ -159,7 +171,7 @@ session_start();
 
 
         <div class="container" id="container-add">
-            <h2 class="h2" style="padding-left:50%;">List Name</h2>
+            <h2 class="h2" id="h2-add">List Name</h2>
 
             <form name="newShoppingListItemForm" action="ShoppingList.php" onsubmit="return checkEmptyInput();">
                 <h3 class="h3">Add things to buy :</h3>
@@ -169,7 +181,7 @@ session_start();
                         Select things to buy
                         <span class="caret"></span>
                     </button>
-                    <ul class="dropdown-menu" style="height: auto; max-height: 250%; overflow-x: hidden;">
+                    <ul class="dropdown-menu" id="dropdown-add" >
                         <li><a>Pizza</a></li>
                         <li><a>Milo</a></li>
                         <li><a>Beer</a></li>
@@ -182,15 +194,15 @@ session_start();
                 <div class="row">
 
                     <div class="col-sm-4"><h3 class="h3">Quantity : </h3></div>
-                    <div class="col-sm-5" style="padding-top:2%;"><input type="text" name="newShoppingListQty" class="text-primary" style="width:50px; height:50px;"></div>
+                    <div class="col-sm-5" id="qtyCol" ><input type="text" name="newShoppingListQty" class="text-primary" id="qtyBtn"></div>
 
                 </div>
                 <div class="row">
                     <div class="col-sm-4"><h3 class="h3">Description : </h3></div>
-                    <div class="col-sm-5" style="padding-top:4%;"><textarea style="resize:none; height: 150px; width:200px;" name="newShoppingListDesc" class="text-primary"></textarea></div>
+                    <div class="col-sm-5" id="descCol"><textarea id="descTxtArea" name="newShoppingListDesc" class="text-primary"></textarea></div>
 
-                    <div class="col-sm-4" style="padding-left:15%;">
-                        <button type="submit" class="btn btn-primary" style="width:80px; height:50px;">Add</button>
+                    <div class="col-sm-4" id="addBtnCol">
+                        <button type="submit" class="btn btn-primary" id="addBtn">Add</button>
                     </div>
                 </div>
             </form>
