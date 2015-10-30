@@ -14,19 +14,27 @@
 		    $(document).ready(function(){
 				$("#exitGrp00").click(function(){
 					$("#currGrp00").remove();
-					alert('Successfully exited from Family Group.');
+					alert('Successfully Exited from Family Group.');
 				});
 				$("#exitGrp01").click(function(){
 					$("#currGrp01").remove();
-					alert('Successfully exited from Friends Group.');
+					alert('Successfully Exited from Friends Group.');
 				});
 				$("#acceptGrp00").click(function(){
 					$("#inviteGrp00").remove();
-					alert('You have accepted the invitation to Family Group.');
+					alert('You have Accepted the invitation to Family Group.');
+				});
+				$("#declineGrp00").click(function(){
+					$("#inviteGrp00").remove();
+					alert('You have Declined the invitation to Family Group.');
+				});
+				$("#acceptGrp01").click(function(){
+					$("#inviteGrp01").remove();
+					alert('You have Accepted the invitation to Friends Group.');
 				});
 				$("#declineGrp01").click(function(){
 					$("#inviteGrp01").remove();
-					alert('You have accepted the invitation to Friends Group.');
+					alert('You have Declined the invitation to Friends Group.');
 				});
 				
 			});
