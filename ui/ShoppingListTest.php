@@ -159,10 +159,6 @@ session_start();
             $selectedItem = $_POST["selectitem"];
             $selectedQuantity = item_input($_POST["newShoppingListQty"]);
             $selectedDescription = $_POST["newShoppingListDesc"];
-            $urgency = $_POST("urgencydate");
-        }
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $urgency = $_POST("urgencydate");
         }
 
         function addtolist() {
