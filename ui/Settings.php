@@ -11,7 +11,7 @@
 	<body class="container-fluid">
 		<ul class="nav nav-tabs">
                     <li><a href="./ItemList.php">Item</a></li>
-			<li><a href="./ShoppingList.php">Shopping</a></li>
+			<li><a href="./HomePage.php">Shopping</a></li>
                         <li><a href="./Groups.php">Groups</a></li>
 			<li class="active"><a href="#">Settings</a></li>
 		</ul>

@@ -136,7 +136,7 @@ session_start();
 
         <ul class="nav nav-tabs">
             <li><a href="./ItemList.php">Item</a></li>
-            <li class="active"><a href="#">Shopping</a></li>
+            <li class="active"><a href="./HomePage.php">Shopping</a></li>
             <li><a href="./Groups.php">Groups</a></li>
             <li><a href="./Settings.php">Settings</a></li>
         </ul>
@@ -245,7 +245,7 @@ session_start();
 
         <!-- Right Container -->
         <div class="container" id="container-add">
-            <h2 class="h2" id="h2-add">List Name</h2>
+            <h2 class="h2" id="h2-add"><?php echo $_GET["list"] ?></h2>
 
             <form name="newShoppingListItemForm" onsubmit="return checkEmptyInput();" method="post" role="form" >
                 <h3 class="h3">Add things to buy :</h3>
