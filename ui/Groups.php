@@ -6,39 +6,23 @@
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		 <script src="../js/GroupsMain/GroupsMain.js"></script>
 		<?php
 		    include "./classes/GroupsInvitation.php";
-		    $grpInvite_Obj = new GroupsInvitation();
+			
+			function outputCurrentGroups()
+			{
+				global $grpInvite_Obj;
+				echo $grpInvite_Obj->generateCurrentGroups_HTML();
+			}
+			function outputReceivedInvitations()
+			{
+				global $grpInvite_Obj;
+				echo $grpInvite_Obj->generateInvitations_HTML();
+			}
+			
+			$grpInvite_Obj = new GroupsInvitation();
 		?>
-		<script>
-		    $(document).ready(function(){
-				$("#exitGrp00").click(function(){
-					$("#currGrp00").remove();
-					alert('Successfully Exited from Family Group.');
-				});
-				$("#exitGrp01").click(function(){
-					$("#currGrp01").remove();
-					alert('Successfully Exited from Friends Group.');
-				});
-				$("#acceptGrp00").click(function(){
-					$("#inviteGrp00").remove();
-					alert('You have Accepted the invitation to Family Group.');
-				});
-				$("#declineGrp00").click(function(){
-					$("#inviteGrp00").remove();
-					alert('You have Declined the invitation to Family Group.');
-				});
-				$("#acceptGrp01").click(function(){
-					$("#inviteGrp01").remove();
-					alert('You have Accepted the invitation to Friends Group.');
-				});
-				$("#declineGrp01").click(function(){
-					$("#inviteGrp01").remove();
-					alert('You have Declined the invitation to Friends Group.');
-				});
-				
-			});
-		</script>
 	</head>
 	<body class="container-fluid">
 		<ul class="nav nav-tabs">
@@ -60,23 +44,17 @@
                       <!-- php while loop to echo all the group names and edit groupinfo page respectively-->
 					  
 					  <?php
-		                  $grpInvite_Obj -> outputAsCurrentGroups();
+		                  outputCurrentGroups();
 		              ?>
-					  <tr>
-						<td>&nbsp;</td>
-						<td>&nbsp;</td>
-					  </tr>
 					</table>
 				</div>
 				<div class="col-xs-6">
-				    <form role="form">
 					    <div class="form-group">
 						    <label for="createGrp_Name">Create New</label>
 							<input type="text" class="form-control" id="createGrp_Name"
 							       placeholder="Enter new group name here"/>
 						</div>
-						<button type="submit" class="btn btn-default btn-md">Submit</button>
-					</form>
+						<button id="btnSubmit" class="btn btn-default btn-md">Submit</button>
 				</div>
 			</div>
 			<div class="row">
@@ -93,7 +71,7 @@
 								<th>Decline Invitation</th>
 							</tr>
 							<?php
-                                $grpInvite_Obj->outputAsReceivedInvitations();							
+							    outputReceivedInvitations();
 							?>
 						</table>
 					</div>

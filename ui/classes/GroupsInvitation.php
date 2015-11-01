@@ -1,5 +1,4 @@
 <?php
-    define("MAX_ROWS", 2);
 	class GroupsInvitation
 	{
 		private $currGrp_Name;
@@ -9,21 +8,23 @@
 		
 		function __construct()
 		{
-			$this->currGrp_Name = array("Family", "Friends");
-		    $this->rcvdInviteGrp_Name = array("Family", "Friends");
+			$this->currGrp_Name = array("Family");
+		    $this->rcvdInviteGrp_Name = array("Friends", "MARKET AJUMMA (Auntie)");
 		    $this->rcvdInviteGrp_Email = array("abc@email.com", "bangHero@ymail.sg");
 		}
 		
-		public function outputAsCurrentGroups()
+		public function generateCurrentGroups_HTML()
 		{
+			$currGrpHTML = "";
 			$currGrp_Count = 0;
-			while($currGrp_Count < MAX_ROWS)
+			$currGrpArr_Size = count($this->currGrp_Name);
+			while($currGrp_Count < $currGrpArr_Size)
 			{
-				if(MAX_ROWS - $currGrp_Count == 1)
-				{
-					echo "\r\n";
-				}
-				echo "<tr id =\"currGrp0".$currGrp_Count."\">
+				//if(MAX_ROWS - $currGrp_Count == 1)
+				//{
+				//	echo "\r\n";
+				//}
+				$currGrpHTML.= "<tr id =\"currGrp0".$currGrp_Count."\">
 						<td><a href=\"GroupInfo.php\"><strong>".$this->currGrp_Name[$currGrp_Count]."</strong></a></td>
 						<td>
 						    <span id=\"exitGrp0".$currGrp_Count."\" class=\"glyphicon glyphicon-remove\"></span>
@@ -32,17 +33,21 @@
 					  </tr>";
 				$currGrp_Count++;
 			}
+			
+			return $currGrpHTML;
 		}
-		public function outputAsReceivedInvitations()
+		public function generateInvitations_HTML()
 		{
+			$rcvdInvitationsHTML = "";
 			$rcvdInvite_Count = 0;
-			while($rcvdInvite_Count < MAX_ROWS)
+			$rcvdInvitesArr_Size = count($this->rcvdInviteGrp_Name);
+			while($rcvdInvite_Count < $rcvdInvitesArr_Size)
 			{
-				if(MAX_ROWS - $rcvdInvite_Count == 1)
+				if($rcvdInvitesArr_Size - $rcvdInvite_Count == 1)
 				{
-					echo "\r\n";
+					$rcvdInvitationsHTML .= "\r\n";
 				}
-				echo "<tr id =\"inviteGrp0".$rcvdInvite_Count."\">
+				$rcvdInvitationsHTML .= "<tr id =\"inviteGrp0".$rcvdInvite_Count."\">
 						<td>". $this->rcvdInviteGrp_Name[$rcvdInvite_Count]. "</td>
 						<td>". $this->rcvdInviteGrp_Email[$rcvdInvite_Count]. "</td>
 						<td>
@@ -54,6 +59,7 @@
 					  </tr>";
 				$rcvdInvite_Count++;
 			}
+			return $rcvdInvitationsHTML;
 		}
 	} // End of class definitions
 
