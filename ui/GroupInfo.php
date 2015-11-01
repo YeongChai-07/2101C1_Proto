@@ -60,15 +60,17 @@
                           return false;
                           }
                         return true;
-                        }
-                    function adduser(){
-                        //var userInput=document.forms["newNameForm"]["newName"].value;
-                        var userInput='10';
-                        console.log(userInput);
-                        var output = document.getElementById('search');
-                        var ele = document.createElement("div");
-                        ele.innerHTML= userInput;
-                        output.appendChild(ele);
+                       }
+                        
+                    function getGroupName(){
+                       var groupInput = document.forms["groupForm"]["groupName"].value;
+                       if (groupInput =="")
+                       {
+                           alert ("No list shared");
+                           $groupname = 'Nothing';
+                           return false;
+                       }
+                       return true;
                     }
         </script>
         <div id='searchside' class = container-fluid style="float: left; margin: 5px; position: relative; width: 400px">
@@ -79,7 +81,7 @@
             <h3>Search Users</h3>
             <form name='newNameForm' onsubmit="return checkEmptyName();">
                 <input name='newName' id ='search' type="text" class="form-control" placeholder="Search">
-                <button id='adduser' class="btn btn-primary btn-md" onclick="adduser();" ><strong>ADD</strong></button>
+                <button id='adduser' class="btn btn-primary btn-md" ><strong>ADD</strong></button>
             </form>
             
             
@@ -130,7 +132,12 @@
                         <h4 class="modal-title" id="myModalLabel">View List</h4>
                     </div>
                     <div class="modal-body">
-                        <p>No list shared yet!</p>
+                        <?php
+                        function GrpName($gname = 'No list shared !') {
+                            echo "$gname <br>";
+                        }
+                        GrpName();
+                        ?>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -146,24 +153,26 @@
                         <h4 class="modal-title" id="myModalLabel">Share List</h4>
                     </div>
                     <div class="modal-body">
-                        <table>
-                            <tr>
-                                <td>My Family</td>
-                                <td><button>Share</button></td>
-                            </tr>
-                            <tr>
-                                <td>Chocolate cake</td>
-                                <td><button>Share</button></td>
-                            </tr>
-                            <tr>
-                                <td>Games 2015</td>
-                                <td><button>Share</button></td>
-                            </tr>
-                            <tr>
-                                <td>My stash</td>
-                                <td><button>Share</button></td>
-                            </tr>
-                        </table>
+                         <form name='groupForm' onsubmit="return getGroupName();">
+                             <table>
+                                 <tr>
+                                     <td>My Family</td>
+                                     <td><button>Share</button></td>
+                                 </tr>
+                                 <tr>
+                                     <td>Chocolate cake</td>
+                                     <td><button>Share</button></td>
+                                 </tr>
+                                 <tr>
+                                     <td>Games 2015</td>
+                                     <td><button>Share</button></td>
+                                 </tr>
+                                 <tr>
+                                     <td>My stash</td>
+                                     <td><button>Share</button></td>
+                                 </tr>
+                             </table>
+                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
