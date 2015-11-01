@@ -43,7 +43,7 @@
                             echo "Family";
                             echo '</td>';
                             echo '<td class="viewButton"><a href="./ViewShoppingList.php?list=Family"><button type="button" class="btn"><span class="glyphicon glyphicon-eye-open"></span></button></a></td>';
-                            echo '<td class="editButton"><a href="./ShoppingList.php?list=Family"><button type="button" class="btn"><span class="glyphicon glyphicon-pencil"></span></button></a></td>';
+                            echo '<td class="editButton"><a href="./ShoppingListTest.php?list=Family"><button type="button" class="btn"><span class="glyphicon glyphicon-pencil"></span></button></a></td>';
                             echo '<td class="deleteButton"'?> onclick="$('#list1').toggle(); alert('Successfully deleted Family Shopping List.');">
                     <?php
                             echo '<button type="button" class="btn" style="width:60px"><span class="glyphicon glyphicon-trash"></span></button></td>';
@@ -59,7 +59,7 @@
                     <tr id="list2">
                         <td class="col-sm-12">Friends</td>
                         <td class="viewButton"><a href="./ViewShoppingList.php?list=Friends"><button type="button" class="btn"><span class="glyphicon glyphicon-eye-open"></span></button></a></td>
-                        <td class="editButton"><a href="./ShoppingList.php?list=Friends"><button type="button" class="btn"><span class="glyphicon glyphicon-pencil"></span></button></a></td>
+                        <td class="editButton"><a href="./ShoppingListTest.php?list=Friends"><button type="button" class="btn"><span class="glyphicon glyphicon-pencil"></span></button></a></td>
                         <td class="deleteButton" onclick="$('#list2').toggle(); alert('Successfully deleted Friends Shopping List.');"><button type="button" class="btn" style="width:60px"><span class="glyphicon glyphicon-trash"></span></button></td>
                     </tr>
                     <?php
@@ -71,7 +71,7 @@
                             echo '<td class="viewButton"><a href="./ViewShoppingList.php?list=';
                             echo $_GET["newList"];
                             echo '"><button type="button" class="btn"><span class="glyphicon glyphicon-eye-open"></span></button></a></td>';
-                            echo '<td class="editButton"><a href="./ShoppingList.php?list=';
+                            echo '<td class="editButton"><a href="./ShoppingListTest.php?list=';
                             echo $_GET["newList"];
                             echo '"><button type="button" class="btn"><span class="glyphicon glyphicon-pencil"></span></button></a></td>';
                             echo '<td class="deleteButton"'?> onclick="$('#list3').toggle();">
