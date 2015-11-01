@@ -43,7 +43,7 @@
 	<body class="container-fluid">
 		<ul class="nav nav-tabs">
 		    <li class="active"><a href="#">Item</a></li>
-			<li><a href="./ShoppingList.html">Shopping</a></li>
+			<li><a href="./HomePage.php">Shopping</a></li>
                         <li><a href="./Groups.php">Groups</a></li>
                         <li><a href="./Settings.php">Settings</a></li>
 		</ul>
