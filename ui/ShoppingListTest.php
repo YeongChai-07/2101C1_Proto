@@ -161,21 +161,10 @@ session_start();
             $selectedDescription = $_POST["newShoppingListDesc"];
         }
 
-        function addtolist() {
-            if (isset($_GET["selectitem"])) {
-                echo '<tr>';
-                echo '<td>';
-                echo $selectedItem;
-                echo '</td>';
-                echo '<td>';
-                echo $selectedQuantity;
-                echo '</td>';
-                echo '</tr>';
-            }
-        }
+
         ?>
         <div class="container" id="container-table">
-            <form name="updateShoppingList" action="ShoppingList.php" method="post" role="form">
+<!--            <form name="updateShoppingList"  method="post" role="form">-->
                 <br/><br/><br/><br/>
                 <div class="panel panel-primary">
                     <div class="panel-heading">
@@ -189,28 +178,28 @@ session_start();
                             <td><b>Quantity</b></td>
                             <td><b>Delete?</b></td>
                         </tr>
-                        <tr>
+                        <tr id="row1">
                             <td>Milo</td>
                             <td><input type="text" class="text-primary text-desc" value="Energy"></td>
                             <td><input type="text" class="text-primary text-qty" value="3"></td>
-                            <td><button name="deleteFromShoppingList" class="btn btn-danger btn-del" value="milo">X</button></td>
+                            <td><button class="btn-danger" onclick="$('#row1').toggle();" value="milo"><span class="glyphicon glyphicon-remove"></span></button></td>
                         </tr>
-                        <tr>
+                        <tr id="row2">
                             <td>Beer</td>
                             <td><input type="text" class="text-primary text-desc" value="Tiger"></td>
                             <td><input type="text" class="text-primary text-qty"  value="4"></td>
-                            <td><button name="deleteFromShoppingList" class="btn btn-danger btn-del" value="beer">X</button></td>
+                            <td><button class="btn-danger" onclick="$('#row2').toggle();" value="Beer"><span class="glyphicon glyphicon-remove"></span></button></td>
                         </tr>
-                        <tr>
+                        <tr id="row3">
                             <td>Tea</td>
                             <td><input type="text" class="text-primary text-desc" value="Pokka"></td>
                             <td><input type="text" class="text-primary text-qty"  value="1"></td>
-                            <td><button name="deleteFromShoppingList" class="btn btn-danger btn-del" value="tea">X</button></td>
+                            <td><button class="btn-danger" onclick="$('#row3').toggle();" value="Tea"><span class="glyphicon glyphicon-remove"></span></button></td>
                         </tr>                            
                         <?php
                         if (isset($_POST["selectitem"])) {
 
-                            echo '<tr>';
+                            echo '<tr id="row4">';
                             echo '<td>';
                             echo $selectedItem;
                             echo '</td>';
@@ -218,15 +207,12 @@ session_start();
                             echo '</td>';
                             echo '<td><input type="text" class="text-primary text-qty" value=" ' . $selectedQuantity . '">';
                             echo '</td>';
-                            echo '<td><button name="deleteFromShoppingList" class="btn btn-danger btn-del" value=" ' . $selectedItem . '">X</button></td>';
+                            echo '<td><button class="btn-danger" " value=" ' . $selectedItem . ' "' ?> onclick="$('#row4').toggle();
+                            <?php
+                            echo '"><span class="glyphicon glyphicon-remove"></span></button></td>';
                             echo '</tr>';
                         }
                         ?>
-                        <tr>
-                            <td>
-                                <input type="date" name="urgencydate">
-                            </td>
-                        </tr>
                     </table>
 
                 </div>
@@ -254,7 +240,7 @@ session_start();
                     </div>
 
                 </div>
-            </form>
+<!--            </form>-->
         </div>
 
         <!-- Right Container -->
@@ -284,6 +270,7 @@ session_start();
                         <option value="Beer">Beer</option>
                         <option value="Tea">Tea</option>
                         <option value="Meat">Meat</option>
+                        <option value="Eggs">Eggs</option>
                     </select>
                 </div>
                 <br /><br /><br /><br /><br />
