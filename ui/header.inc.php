@@ -15,22 +15,10 @@
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/ui/1.10.1/jquery-ui.min.js"></script>    
-<script type="text/javascript">
-var $j = $.noConflict();
-$j(document).ready(function() {
-    
-    //autocomplete
-    $j(".auto").autocomplete({
-        source: "search.php",
-        minLength: 1
-    });                
-
-});
-</script>
 
 <div class="container-fluid">
     <div class="nav navbar-inverse navbar-fixed-top">
-        <div class="navbar-header"><a href="index.php" class="navbar-brand">My Shopping List</a>
+        <div class="navbar-header"><a href="HomePage.php" class="navbar-brand">My Shopping List</a>
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -39,7 +27,9 @@ $j(document).ready(function() {
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="HomePage.php"><span class="glyphicon glyphicon-globe"></span> Home</a></li>
+                <li><a href="HomePage.php"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                <li><a href="ItemList.php"><span class="glyphicon glyphicon-tasks"></span> Item List</a></li>
+                <li><a href="Groups.php"><span class="glyphicon glyphicon-th"></span> Groups</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <?php

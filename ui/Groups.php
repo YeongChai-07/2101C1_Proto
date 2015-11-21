@@ -28,13 +28,43 @@
 		?>
 	</head>
 	<body class="container-fluid">
-             <?php include 'header.inc.php'; ?>
-		<ul class="nav nav-tabs">
-		    <li><a href="./ItemList.php">Item</a></li>
-                    <li><a href="./HomePage.php">Shopping</a></li>
-			<li class="active"><a href="#">Groups</a></li>
-			<li><a href="./Settings.php">Settings</a></li>
-		</ul>
+            <?php include 'header.inc.php'; ?>
+            <?php
+            $newGrpName = "";
+            $create = "1";
+            $email = $_SESSION['email'];
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $newGrpName = $_POST["newGrpName"];
+                
+                if (empty($newGrpName)) {
+                    $newGrpNameErr = "Please do not leave group name empty.";
+                    $newGrpNamevalid = false;
+                } else {
+                    $sql1 = "SELECT groupName FROM groups";
+                    if ($result = mysqli_query($connection, $sql1)) {
+                        $newGrpNamevalid = true; //Needed when there is no entry in the table yet
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            if ($row['groupName'] == $newGrpName) {
+                                $newGrpNameErr = "Group name had been taken";
+                                $newGrpNamevalid = false;
+                                break;
+                            } else {
+                                $newGrpNameErr = "";
+                                $newGrpNamevalid = true;
+                            }
+                        }
+                    }
+                }
+                if ($newGrpNamevalid){
+                     $sql = "INSERT INTO groups (email, groupName, groupCreator) VALUES (?,?,?)";
+                        if ($statement = mysqli_prepare($connection, $sql)) 
+                        {
+                            mysqli_stmt_bind_param($statement, 'sss', $_SESSION['email'], $newGrpName, $create);
+                            mysqli_stmt_execute($statement);
+                        }
+                } 
+            }
+            ?>
 		<div class="container">
 		    <p>&nbsp;</p>
 			<div class="row">
@@ -45,21 +75,33 @@
 						<th>Assigned Group(s)</th>
 						<th>Exit Group</th>
 					  </tr>
-                      <!-- php while loop to echo all the group names and edit groupinfo page respectively-->
-					  
-					  <?php
-		                  outputCurrentGroups();
-		              ?>
+                                          <?php
+                                          $sql ="SELECT * FROM groups where email ='" .$email . "' ";
+                                          if ($result = mysqli_query($connection, $sql)){
+                                              while ($row = mysqli_fetch_assoc($result)) 
+                                                {
+                                                 echo '<form method="POST" action="ExitGroup.php"'.$row['groupName'].'">';
+                                                echo '<tr>';
+                                                echo '<td>';
+                                                echo $row['groupName'];
+                                                echo '<input type="hidden" name="grpName" value="'.$row['groupName'].'">';
+                                                echo '<td> ';
+                                                echo '<button class="glyphicon glyphicon-remove btn btn-danger"></button>';
+                                                echo '</td>';
+                                                echo '</tr></form>';
+                                                }
+                                          }
+                                          ?>
 					</table>
 				</div>
-				<div class="col-xs-6">
+                            <form role="form" method="post" class="col-xs-6" action="Groups.php">
 					    <div class="form-group">
 						    <label for="createGrp_Name">Create New</label>
-							<input type="text" class="form-control" id="createGrp_Name"
+							<input type="text" class="form-control" id="newGrpName" name="newGrpName"
 							       placeholder="Enter new group name here"/>
 						</div>
 						<button id="btnSubmit" class="btn btn-default btn-md">Submit</button>
-				</div>
+				</form>
 			</div>
 			<div class="row">
 			    <div class="col-xs-12">&nbsp;</div>
@@ -74,9 +116,7 @@
 								<th>Accept Invitation</th>
 								<th>Decline Invitation</th>
 							</tr>
-							<?php
-							    outputReceivedInvitations();
-							?>
+                                                        
 						</table>
 					</div>
 			</div>
