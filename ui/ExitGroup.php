@@ -25,6 +25,6 @@ if ($result2 = mysqli_query($connection, $sql2)){
 }
 }
 
-	//header('location: ../ui/Groups.php');
+	header('location: ../ui/Groups.php');
 ?>
 

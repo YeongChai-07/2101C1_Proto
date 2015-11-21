@@ -9,17 +9,20 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     </head>
+    <?php include 'header.inc.php'; ?>
     <body class="container-fluid">
-         <?php include 'header.inc.php'; ?>
-        <ul class="nav nav-tabs">
-            <li><a href="./ItemList.php">Item</a></li>
-            <li><a href="./HomePage.php">Shopping</a></li>
-            <li class="active"><a href="./GroupInfo.php">Groups</a></li>
-            <li><a href="./Settings.php">Settings</a></li>
-        </ul>
+         
+        <?php
+        if (isset($_GET['id'])) 
+        {
+            $grpName = $_GET['id'];
+        } 
+
+        ?>
         <div id='memberName' class="container-fluid" style="float: left; margin: 5px; position: relative; width: 400px">
             <br/>
-            <h3>Group Name</h3>
+            <br/>
+            <h2><?php echo $grpName; ?></h2>
             <br/>
             <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ViewList">View List</button>
             <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ShareList">Share</button>
@@ -77,6 +80,8 @@
                     }
         </script>
         <div id='searchside' class = container-fluid style="float: left; margin: 5px; position: relative; width: 400px">
+            <br/>
+            <br/>
             <br>
             <a href="./Groups.php" class="btn btn-danger" role="button" style="float: right">Back</a>
             <br><br>

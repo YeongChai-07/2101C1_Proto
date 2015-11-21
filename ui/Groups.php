@@ -46,6 +46,9 @@
                         while ($row = mysqli_fetch_assoc($result)) {
                             if ($row['groupName'] == $newGrpName) {
                                 $newGrpNameErr = "Group name had been taken";
+                                echo '<script language="javascript">';
+                                echo 'alert("Group Name Taken")';
+                                echo '</script>';
                                 $newGrpNamevalid = false;
                                 break;
                             } else {
@@ -82,9 +85,9 @@
                                                 {
                                                  echo '<form method="POST" action="ExitGroup.php"'.$row['groupName'].'">';
                                                 echo '<tr>';
-                                                echo '<td>';
+                                                echo '<td><a href="GroupInfo.php?id='.$row['groupName'].'">';
                                                 echo $row['groupName'];
-                                                echo '<input type="hidden" name="grpName" value="'.$row['groupName'].'">';
+                                                echo '<input type="hidden" name="grpName" value="'.$row['groupName'].'>';
                                                 echo '<td> ';
                                                 echo '<button class="glyphicon glyphicon-remove btn btn-danger"></button>';
                                                 echo '</td>';

@@ -53,6 +53,9 @@
 								if ($row['email'] == $email) 
 								{
 									$emailErr = "email had been taken";
+                                                                        echo '<script language="javascript">';
+                                echo 'alert("Email Taken")';
+                                echo '</script>';
 									$emailvalid = false;
 									break;
 								} else 
@@ -82,6 +85,9 @@
 						if ($pword2 != $pword1) 
 						{
 							$pword2Err = "Please enter a matching Password as above.";
+                                                        echo '<script language="javascript">';
+                                echo 'alert("Password Mismatch")';
+                                echo '</script>';
 							$pword2valid = false;
 						} else 
 						{
