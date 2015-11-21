@@ -87,7 +87,7 @@
                                                 echo '<tr>';
                                                 echo '<td><a href="GroupInfo.php?id='.$row['groupName'].'">';
                                                 echo $row['groupName'];
-                                                echo '<input type="hidden" name="grpName" value="'.$row['groupName'].'>';
+                                                echo '<input type="hidden" name="grpName" value="'.$row['groupName'].'">';
                                                 echo '<td> ';
                                                 echo '<button class="glyphicon glyphicon-remove btn btn-danger"></button>';
                                                 echo '</td>';
