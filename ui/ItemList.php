@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<?php
+	session_start();
+?>
 <html>
     <head>
 	    <title>Item List</title>
@@ -41,6 +44,7 @@
 		</style>
 	</head>
 	<body class="container-fluid">
+            <?php include 'header.inc.php'; ?>
 		<ul class="nav nav-tabs">
 		    <li class="active"><a href="#">Item</a></li>
 			<li><a href="./HomePage.php">Shopping</a></li>

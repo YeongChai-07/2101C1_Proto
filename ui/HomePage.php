@@ -1,3 +1,6 @@
+<?php
+	session_start();
+?>
 <html>
     <head>
         <title>Shopping</title>
@@ -18,6 +21,7 @@
         </script>
     </head>
     <body class="container-fluid">
+         <?php include 'header.inc.php'; ?>
         <ul class="nav nav-tabs">
             <li><a href="./ItemList.php">Item</a></li>
             <li class="active"><a href="./HomePage.php">Shopping</a></li>

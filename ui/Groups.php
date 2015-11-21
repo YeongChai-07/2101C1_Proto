@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<?php
+	session_start();
+?>
 <html>
     <head>
 	    <title>Groups</title>
@@ -25,6 +28,7 @@
 		?>
 	</head>
 	<body class="container-fluid">
+             <?php include 'header.inc.php'; ?>
 		<ul class="nav nav-tabs">
 		    <li><a href="./ItemList.php">Item</a></li>
                     <li><a href="./HomePage.php">Shopping</a></li>

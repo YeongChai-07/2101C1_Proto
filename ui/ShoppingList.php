@@ -126,12 +126,7 @@ session_start();
 
     </head>
     <body class="container-fluid">
-        <?php /*
-          $_SESSION["USERNAME"] = "USERNAME";
-          $_SESSION["PASSWORD"] = "PASSWORD";
-
-         */ ?>   
-
+        <?php include 'header.inc.php'; ?>
         <ul class="nav nav-tabs">
             <li><a href="./ItemList.php">Item</a></li>
             <li class="active"><a href="#">Shopping</a></li>

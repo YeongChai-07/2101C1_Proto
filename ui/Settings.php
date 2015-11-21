@@ -1,4 +1,6 @@
-
+<?php
+	session_start();
+?>
 
 <html>
     <head>
@@ -9,6 +11,7 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     </head>
 	<body class="container-fluid">
+            <?php include 'header.inc.php'; ?>
 		<ul class="nav nav-tabs">
                     <li><a href="./ItemList.php">Item</a></li>
 			<li><a href="./HomePage.php">Shopping</a></li>
