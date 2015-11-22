@@ -76,7 +76,7 @@
 						<th>Exit Group</th>
 					  </tr>
                                           <?php
-                                          $sql ="SELECT * FROM groups where email ='" .$email . "' ";
+                                          $sql ="SELECT * FROM groups where email ='" .$email . "' AND (groupCreator = '0' OR groupCreator = '1')";
                                           if ($result = mysqli_query($connection, $sql)){
                                               while ($row = mysqli_fetch_assoc($result)) 
                                                 {
@@ -116,6 +116,28 @@
 								<th>Accept Invitation</th>
 								<th>Decline Invitation</th>
 							</tr>
+                                                        <?php
+                                                        $sql2 ="SELECT * FROM groups where email ='" .$email . "' AND groupCreator = '3'";
+                                                        if ($result = mysqli_query($connection, $sql2)){
+                                                            while ($row = mysqli_fetch_assoc($result)) 
+                                                              {
+                                                              echo '<form method="POST" action="ExitGroup.php"'.$row['groupName'].'">';
+                                                              echo '<tr>';
+                                                              echo '<td>';
+                                                              echo $row['groupName'];   
+                                                              echo '</td>';
+                                                              echo '<td>';
+                                                              echo $row['email'];
+                                                              echo '<td>';
+                                                              echo '<button class="glyphicon glyphicon-ok btn btn-success"></button>';
+                                                              echo '</td>';
+                                                              echo '<td>';
+                                                              echo '<button class="glyphicon glyphicon-remove btn btn-danger"></button>';
+                                                              echo '</td>';
+                                                              echo '</tr></form>';
+                                                              }
+                                                        }
+                                                        ?>
                                                         
 						</table>
 					</div>
