@@ -128,12 +128,6 @@ session_start();
 
     </head>
     <body class="container-fluid">
-        <?php /*
-          $_SESSION["USERNAME"] = "USERNAME";
-          $_SESSION["PASSWORD"] = "PASSWORD";
-
-         */ ?>   
-
         <ul class="nav nav-tabs">
             <li><a href="./ItemList.php">Item</a></li>
             <li class="active"><a href="./HomePage.php">Shopping</a></li>

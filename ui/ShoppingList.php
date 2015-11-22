@@ -1,9 +1,4 @@
 <!DOCTYPE html>
-<?php
-session_start();
-?>
-
-
 <html>
     <head>
         <title>Shopping List</title>

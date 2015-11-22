@@ -1,6 +1,3 @@
-<?php
-	session_start();
-?>
 <html>
     <head>
         <title>Groups</title>
@@ -29,7 +26,7 @@
             <br/><br/>
             <h3>Current Members</h3>
             <div class='container-fluid'>
-                <table id ='memberList' class="table table-striped bordered">
+                <table id ='memberList' class="table table-striped bordered"> 
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -38,21 +35,38 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr id="1namerow">
-                            <td>Johnny</td>
-                            <td>Admin</td>
-                            <td></td>
-                        </tr>
-                        <tr id="2namerow">
-                            <td>Mary</td>
-                            <td>-</td>
-                            <td><button class="btn-danger" onclick="$('#2namerow').toggle();"><span class="glyphicon glyphicon-remove"></span></button></td>
-                        </tr>
-                        <tr id="3namerow">
-                            <td>July</td>
-                            <td>-</td>
-                            <td><button class="btn-danger" onclick="$('#3namerow').toggle();"><span class="glyphicon glyphicon-remove"></span></button></td>
-                        </tr>
+                    <?php
+                    $sql = "SELECT * FROM groups WHERE groupName ='" .$grpName . "' AND (groupCreator ='1' OR groupCreator ='0')" ;
+                    if ($result = mysqli_query($connection, $sql)) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            echo '<form method="POST" action="withingroupdelete.php"'.$row['groupName'].'">';
+                            echo '<tr>';
+                            echo '<td > ';
+                            echo $row['email'];
+                            echo '<input type="hidden" name="email" value="'.$row['email'].'">';
+                            echo '<input type="hidden" name="grpname" value="'.$row['groupName'].'">';
+                            echo '</td>';
+                            echo '<td> ';
+                            if ($row['groupCreator'] == '1'){
+                                echo 'Admin';
+                                echo '</td>';
+                                echo '<td> ';
+                                echo '<button class="btn btn-danger">Delete Group</button>';
+                                echo '</td>';                          
+                                echo '</tr>';
+                            } 
+                            if ($row['groupCreator'] == '0') {
+                                echo '-';
+                                echo '</td>';
+                                echo '<td> ';
+                                echo '<button class="glyphicon glyphicon-remove btn btn-danger"></button>';
+                                echo '</td>';                          
+                                echo '</tr></form>'; 
+                            }
+                            
+                        }
+                    }
+                    ?>
                     </tbody>
                 </table>
             </div>
@@ -87,8 +101,9 @@
             <br><br>
             <br>
             <h3>Search Users</h3>
-            <form name='newNameForm' onsubmit="return checkEmptyName();">
+            <form name='newNameForm' onsubmit="return checkEmptyName();" action="invitemember.php" role="form" method="post">
                 <input name='newName' id ='search' type="text" class="form-control" placeholder="Search">
+                <input name='grpName' id ='search' type="hidden" <?php echo 'value="'.$grpName.'"' ?> >
                 <button id='adduser' class="btn btn-primary btn-md" ><strong>ADD</strong></button>
             </form>
             
@@ -104,30 +119,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr id="1row">
-                            <td>John</td>
-                            <td><button class="btn-danger" onclick="$('#1row').toggle();"><span class="glyphicon glyphicon-remove"></span></button></td>
-                        </tr>
-                        <tr id="2row">
-                            <td>Cena</td>
-                            <td><button class="btn-danger" onclick="$('#2row').toggle();"><span class="glyphicon glyphicon-remove"></span></button></td>
-                        </tr>
-                        
                         <?php
-                        if (isset($_GET["newName"])){
-                            echo '<tr id="3row">';
-                            echo '<td> ';
-                            echo $_GET['newName'];
-                            echo '</td>';
-                            echo '<td>';
-                            echo '<button class="btn-danger" '?> onclick="$('#3row').toggle();">
-                    <?php
-                            echo '<span class="glyphicon glyphicon-remove"></span></button>';
-                            echo '</td>';
-                            echo '</tr>';
-                            
-                            }  
-                        ?>
+                        $sql2 = "SELECT * FROM groups WHERE groupName ='" . $grpName . "' AND groupCreator ='3' ";
+                        if ($result = mysqli_query($connection, $sql2)) {
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                echo '<form method="POST" action="#"'.$row['groupName'].'">';
+                                echo '<tr>';
+                                echo '<td > ';
+                                echo $row['email'];
+                                echo '</td>';
+                                echo '<td> ';
+                                echo '<button class="glyphicon glyphicon-remove btn btn-danger"></button>';
+                                echo '</td>';
+                                echo '</tr></form>';
+                                                         
+                            }
+                        }
+?>
                     </tbody>
                 </table>
             </div>

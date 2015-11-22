@@ -1,15 +1,14 @@
 <?php
 include 'header.inc.php';
-$email = $_SESSION['email'];
 $creator = '1';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = ($_POST["grpName"]);
+    $email = ($_POST["email"]);
+    $name = ($_POST["grpname"]);
 }
-echo $name;
-echo $email;
 
-$sql1 ="SELECT * FROM groups WHERE email = '".$email."' AND groupName = '".$name."' AND groupCreator = '".$creator."'";
+
+$sql1 ="SELECT * FROM groups WHERE email = '".$email."' AND groupName = '".$name."'AND groupCreator = '".$creator."'" ;
 if ($result1 = mysqli_query($connection, $sql1)){
     $sql3 = "DELETE FROM groups WHERE groupName = '".$name."'";
     if ($result3 = mysqli_query($connection, $sql3)){
@@ -23,6 +22,7 @@ if ($result2 = mysqli_query($connection, $sql2)){
     echo 'success';
 }
 }
-	header('location: ../ui/Groups.php');
+	 header('location: ../ui/GroupInfo.php?id='.$name);
 ?>
+
 

@@ -1,7 +1,4 @@
 <!DOCTYPE html>
-<?php
-	session_start();
-?>
 <html>
     <head>
 	    <title>Groups</title>
@@ -83,7 +80,7 @@
                                           if ($result = mysqli_query($connection, $sql)){
                                               while ($row = mysqli_fetch_assoc($result)) 
                                                 {
-                                                 echo '<form method="POST" action="ExitGroup.php"'.$row['groupName'].'">';
+                                                echo '<form method="POST" action="ExitGroup.php"'.$row['groupName'].'">';
                                                 echo '<tr>';
                                                 echo '<td><a href="GroupInfo.php?id='.$row['groupName'].'">';
                                                 echo $row['groupName'];

@@ -1,8 +1,3 @@
-<?php
-	session_start();
-?>
-<!DOCTYPE html>
-
 <html>
     <head>
         <meta charset="UTF-8">
@@ -113,14 +108,7 @@
                     </div>
                 </form>
                     <a class="btn btn-success btn-md" href="signup.php">Sign Up</a>
-                </div>
-                <?php
-                $sql = "SELECT * FROM user";
-                      if ($result = mysqli_query($connection, $sql)) {
-                      while ($row = mysqli_fetch_assoc($result)) {
-                          echo $row['email'];
-                      }}  
-                ?>
+                </div>    
             </div>
         </div>
     </body>

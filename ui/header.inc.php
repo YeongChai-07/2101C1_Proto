@@ -7,6 +7,8 @@
 	{
 		die(mysqli_connect_error()); 			// die() is equivalent to exit()	
 	}
+        
+        session_start();
 ?>
 <html>
 <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow&v1' rel='stylesheet' type='text/css' />
@@ -38,8 +40,8 @@
                     ?>
                     <li><a href="signup.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
                     <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-				
-                    <?php
+                    <?php  
+                   
                 } else 
 				{
                     ?>
