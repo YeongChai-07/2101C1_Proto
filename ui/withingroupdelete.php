@@ -1,10 +1,10 @@
 <?php
 include 'header.inc.php';
 $creator = '1';
-
+$sessionemail = $_SESSION['email'];
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = ($_POST["email"]);
-    $name = ($_POST["grpname"]);
+    $email = ($_POST["email2"]);
+    $name = ($_POST["grpname2"]);
 }
 
 
@@ -22,7 +22,12 @@ if ($result2 = mysqli_query($connection, $sql2)){
     echo 'success';
 }
 }
-	 header('location: ../ui/GroupInfo.php?id='.$name);
+if($email != $sessionemail ){
+    header('location: ../ui/GroupInfo.php?id='.$name);
+}
+else {
+    header('location: ../ui/Groups.php?id=');
+}	 
 ?>
 
 

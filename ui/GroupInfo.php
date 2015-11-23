@@ -39,12 +39,12 @@
                     $sql = "SELECT * FROM groups WHERE groupName ='" .$grpName . "' AND (groupCreator ='1' OR groupCreator ='0')" ;
                     if ($result = mysqli_query($connection, $sql)) {
                         while ($row = mysqli_fetch_assoc($result)) {
-                            echo '<form method="POST" action="withingroupdelete.php"'.$row['groupName'].'">';
+                            echo '<form method="POST" action="withingroupdelete.php">';
                             echo '<tr>';
                             echo '<td > ';
                             echo $row['email'];
-                            echo '<input type="hidden" name="email" value="'.$row['email'].'">';
-                            echo '<input type="hidden" name="grpname" value="'.$row['groupName'].'">';
+                            echo '<input type="hidden" name="email2" value="'.$row['email'].'">';
+                            echo '<input type="hidden" name="grpname2" value="'.$row['groupName'].'">';
                             echo '</td>';
                             echo '<td> ';
                             if ($row['groupCreator'] == '1'){
@@ -53,7 +53,7 @@
                                 echo '<td> ';
                                 echo '<button class="btn btn-danger">Delete Group</button>';
                                 echo '</td>';                          
-                                echo '</tr>';
+                                echo '</tr></form>';
                             } 
                             if ($row['groupCreator'] == '0') {
                                 echo '-';
@@ -123,7 +123,7 @@
                         $sql2 = "SELECT * FROM groups WHERE groupName ='" . $grpName . "' AND groupCreator ='3' ";
                         if ($result = mysqli_query($connection, $sql2)) {
                             while ($row = mysqli_fetch_assoc($result)) {
-                                echo '<form method="POST" action="#"'.$row['groupName'].'">';
+                                echo '<form method="POST" action=""'.$row['groupName'].'">';
                                 echo '<tr>';
                                 echo '<td > ';
                                 echo $row['email'];
