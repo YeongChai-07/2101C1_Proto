@@ -86,7 +86,12 @@
                                                 echo $row['groupName'];
                                                 echo '<input type="hidden" name="grpName" value="'.$row['groupName'].'">';
                                                 echo '<td> ';
+                                                if ($row['groupCreator'] == '0'){
                                                 echo '<button class="glyphicon glyphicon-remove btn btn-danger"></button>';
+                                                }
+                                                if ($row['groupCreator'] == '1'){
+                                                echo '<button class="btn btn-danger">Delete Group</button>';
+                                                }
                                                 echo '</td>';
                                                 echo '</tr></form>';
                                                 }
