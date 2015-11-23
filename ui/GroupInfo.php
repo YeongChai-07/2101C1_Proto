@@ -123,10 +123,12 @@
                         $sql2 = "SELECT * FROM groups WHERE groupName ='" . $grpName . "' AND groupCreator ='3' ";
                         if ($result = mysqli_query($connection, $sql2)) {
                             while ($row = mysqli_fetch_assoc($result)) {
-                                echo '<form method="POST" action=""'.$row['groupName'].'">';
+                                echo '<form method="POST" action="cancelinvite.php"'.$row['groupName'].'">';
                                 echo '<tr>';
                                 echo '<td > ';
                                 echo $row['email'];
+                                echo '<input type="hidden" name="grpName5" value="'.$row['groupName'].'">';
+                                echo '<input type="hidden" name="newName5" value="'.$row['email'].'">';
                                 echo '</td>';
                                 echo '<td> ';
                                 echo '<button class="glyphicon glyphicon-remove btn btn-danger"></button>';
