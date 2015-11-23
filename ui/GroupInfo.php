@@ -30,7 +30,12 @@
             <h2><?php echo $grpName; ?></h2>
             <br/>
             <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ViewList">View List</button>
-            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ShareList">Share</button>
+            <?php
+            if ($result = mysqli_query($connection, $sql9)) {
+            while ($row = mysqli_fetch_assoc($result)){
+             echo '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ShareList">Share</button>';   
+            }}
+            ?>
             <br/><br/>
             <h3>Current Members</h3>
             <div class='container-fluid'>
