@@ -18,7 +18,7 @@
         $userisadmin = FALSE;
         $sql9 = "SELECT * FROM groups WHERE email ='" . $currentuser . "' AND groupName ='" .$grpName . "' AND groupCreator ='1' " ;
         if ($result = mysqli_query($connection, $sql9)) {
-            while ($row = mysqli_fetch_assoc($result)){
+            if ($row = mysqli_fetch_assoc($result)){
             $userisadmin = TRUE;}
             }
        
@@ -32,7 +32,7 @@
             <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ViewList">View List</button>
             <?php
             if ($result = mysqli_query($connection, $sql9)) {
-            while ($row = mysqli_fetch_assoc($result)){
+            if ($row = mysqli_fetch_assoc($result)){
              echo '<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ShareList">Share</button>';   
             }}
             ?>
@@ -118,15 +118,18 @@
             <br><br>
             <br>
             <?php
+            if ($result = mysqli_query($connection, $sql9)) {
+            if ($row = mysqli_fetch_assoc($result)){
+            echo '<h3>Search Users</h3>';
+            echo '<form name="newNameForm" onsubmit="return checkEmptyName();" action="invitemember.php" role="form" method="post">';
+            echo '<input name="newName" id ="search" type="text" class="form-control" placeholder="Search">';
+            echo '<input name="grpName" id ="search" type="hidden" value="'.$grpName.'" >';
+            echo '<button id="adduser" class="btn btn-primary btn-md" ><strong>ADD</strong></button></form>';
+            }}
             ?>
-            <h3>Search Users</h3>
-            <form name='newNameForm' onsubmit="return checkEmptyName();" action="invitemember.php" role="form" method="post">
-                <input name='newName' id ='search' type="text" class="form-control" placeholder="Search">
-                <input name='grpName' id ='search' type="hidden" <?php echo 'value="'.$grpName.'"' ?> >
-                <button id='adduser' class="btn btn-primary btn-md" ><strong>ADD</strong></button>
-            </form>
             
-            
+                
+                
             <br>
             <h5>Pending requests</h5>
             <div class='container-fluid'>
