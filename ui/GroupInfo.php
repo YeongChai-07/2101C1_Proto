@@ -10,11 +10,19 @@
     <body class="container-fluid">
          
         <?php
+        $currentuser = $_SESSION['email'];
         if (isset($_GET['id'])) 
         {
             $grpName = $_GET['id'];
-        } 
-
+        }
+        $userisadmin = FALSE;
+        $sql9 = "SELECT * FROM groups WHERE email ='" . $currentuser . "' AND groupName ='" .$grpName . "' AND groupCreator ='1' " ;
+        if ($result = mysqli_query($connection, $sql9)) {
+            while ($row = mysqli_fetch_assoc($result)){
+            $userisadmin = TRUE;}
+            }
+       
+            
         ?>
         <div id='memberName' class="container-fluid" style="float: left; margin: 5px; position: relative; width: 400px">
             <br/>
@@ -50,17 +58,21 @@
                             if ($row['groupCreator'] == '1'){
                                 echo 'Admin';
                                 echo '</td>';
-                                echo '<td> ';
+                                if ($userisadmin){
+                                    echo '<td> ';
                                 echo '<button class="btn btn-danger">Delete Group</button>';
-                                echo '</td>';                          
+                                echo '</td>'; 
+                                }                        
                                 echo '</tr></form>';
                             } 
                             if ($row['groupCreator'] == '0') {
                                 echo '-';
                                 echo '</td>';
+                                if ($userisadmin){
                                 echo '<td> ';
                                 echo '<button class="glyphicon glyphicon-remove btn btn-danger"></button>';
-                                echo '</td>';                          
+                                echo '</td>'; 
+                                }                         
                                 echo '</tr></form>'; 
                             }
                             
@@ -100,6 +112,8 @@
             <a href="./Groups.php" class="btn btn-danger" role="button" style="float: right">Back</a>
             <br><br>
             <br>
+            <?php
+            ?>
             <h3>Search Users</h3>
             <form name='newNameForm' onsubmit="return checkEmptyName();" action="invitemember.php" role="form" method="post">
                 <input name='newName' id ='search' type="text" class="form-control" placeholder="Search">
