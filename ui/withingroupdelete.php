@@ -26,7 +26,7 @@ if($email != $sessionemail ){
     header('location: ../ui/GroupInfo.php?id='.$name);
 }
 else {
-    header('location: ../ui/Groups.php?id=');
+    header('location: ../ui/Groups.php');
 }	 
 ?>
 

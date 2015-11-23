@@ -121,16 +121,18 @@
                                                         if ($result = mysqli_query($connection, $sql2)){
                                                             while ($row = mysqli_fetch_assoc($result)) 
                                                               {
-                                                              echo '<form method="POST" action="ExitGroup.php"'.$row['groupName'].'">';
+                                                              echo '<form method="POST" action="invitation.php">';
                                                               echo '<tr>';
                                                               echo '<td>';
-                                                              echo $row['groupName'];   
+                                                              echo $row['groupName'];
+                                                              echo '<input type="hidden" name="grpName3" value="'.$row['groupName'].'">';
                                                               echo '</td>';
                                                               echo '<td>';
                                                               echo $row['email'];
+                                                              echo '<input type="hidden" name="newName3" value="'.$row['email'].'">';
                                                               echo '<td>';
                                                               echo '<button class="glyphicon glyphicon-ok btn btn-success"></button>';
-                                                              echo '</td>';
+                                                              echo '</td></form>';
                                                               echo '<td>';
                                                               echo '<button class="glyphicon glyphicon-remove btn btn-danger"></button>';
                                                               echo '</td>';
