@@ -134,7 +134,9 @@
                                                               echo '<button class="glyphicon glyphicon-ok btn btn-success"></button>';
                                                               echo '</td></form>';
                                                               echo '<td>';
-                                                              echo '<button class="glyphicon glyphicon-remove btn btn-danger"></button>';
+                                                              echo '<form action="rejectinvite.php" method="POST">';
+                                                              echo '<input type="hidden" name="grpName4" value="'.$row['groupName'].'">';
+                                                              echo'<button class="glyphicon glyphicon-remove btn btn-danger" ></button></form>';                                                                              
                                                               echo '</td>';
                                                               echo '</tr></form>';
                                                               }
