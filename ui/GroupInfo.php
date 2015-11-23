@@ -187,22 +187,23 @@
                     <div class="modal-body">
                          <form name='groupForm' onsubmit="return getGroupName();">
                              <table>
-                                 <tr>
-                                     <td>My Family</td>
-                                     <td><button>Share</button></td>
-                                 </tr>
-                                 <tr>
-                                     <td>Chocolate cake</td>
-                                     <td><button>Share</button></td>
-                                 </tr>
-                                 <tr>
-                                     <td>Games 2015</td>
-                                     <td><button>Share</button></td>
-                                 </tr>
-                                 <tr>
-                                     <td>My stash</td>
-                                     <td><button>Share</button></td>
-                                 </tr>
+                                 <?php
+                                 $sql6 = "SELECT * FROM shoppinglist WHERE email ='" . $currentuser . "' ";
+                                 if ($result = mysqli_query($connection, $sql6)) {
+                                     while ($row = mysqli_fetch_assoc($result)) {
+                                         echo '<form method="POST" action="#" ">';
+                                         echo '<tr>';
+                                         echo '<td > ';
+                                         echo $row['shoppingListName'];
+                                         echo '<input type="hidden" name="shoppingName" value="' . $row['shoppingListName'] . '">';
+                                         echo '</td>';
+                                         echo '<td> ';
+                                         echo '<button class="btn btn-primary">Share</button>';
+                                         echo '</td>';
+                                         echo '</tr></form>';
+                                     }
+                                 }
+                                 ?>
                              </table>
                          </form>
                     </div>
