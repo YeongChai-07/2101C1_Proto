@@ -7,7 +7,7 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     </head>
     <?php include 'header.inc.php'; ?>
-    <body class="container-fluid">
+    <body class="container-fluid center-block">
          
         <?php
         $currentuser = $_SESSION['email'];
@@ -24,7 +24,7 @@
        
             
         ?>
-        <div id='memberName' class="container-fluid" style="float: left; margin: 5px; position: relative; width: 400px">
+        <div id='memberName' class="container" style="float: left; margin: 5px; position: relative; width: auto">
             <br/>
             <br/>
             <h2><?php echo $grpName; ?></h2>
@@ -110,7 +110,7 @@
                        return true;
                     }
         </script>
-        <div id='searchside' class = container-fluid style="float: left; margin: 5px; position: relative; width: 400px">
+        <div id='searchside' class = "container" style="float: left; margin: 5px; position: relative; width: auto">
             <br/>
             <br/>
             <br>

@@ -19,5 +19,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = "UPDATE groups SET shoppingListID = " . $listID . " WHERE groupName ='" . $grpname . "'";
     $result = mysqli_query($connection, $sql);
 }
-
+header('location: ../ui/GroupInfo.php?id='.$grpname);
 ?>
