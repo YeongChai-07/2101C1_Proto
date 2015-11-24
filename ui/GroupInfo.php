@@ -169,15 +169,29 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">View List</h4>
+                        <?php
+                        $sql7 = "SELECT * FROM groups WHERE groupName ='" . $grpName . "' ";
+                                 if ($result = mysqli_query($connection, $sql7)) {
+                                     $row = mysqli_fetch_assoc($result);
+                                     
+                                     if ($row['shoppingListID'] > 0){
+                                         $listID = $row['shoppingListID'];
+                                         $sql77 = "SELECT * FROM shoppinglist WHERE shoppingListID ='" . $listID . "' ";
+                                        if ($result = mysqli_query($connection, $sql77)) {
+                                            $row = mysqli_fetch_assoc($result);
+                                            echo '<h4 class="modal-title" id="myModalLabel">'; 
+                                            echo $row['shoppingListName'];
+                                            echo'</h4>';
+                                 }
+                                     }
+                                     else {
+                                         echo 'No List Shared';
+                                     }
+                                 }
+                        ?> 
                     </div>
                     <div class="modal-body">
-                        <?php
-                        function GrpName($gname = 'No list shared !') {
-                            echo "$gname <br>";
-                        }
-                        GrpName();
-                        ?>
+                        
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -192,28 +206,29 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="myModalLabel">Share List</h4>
                     </div>
-                    <div class="modal-body">
-                         <form name='groupForm' onsubmit="return getGroupName();">
+                    <div class="modal-body"> 
                              <table>
                                  <?php
                                  $sql6 = "SELECT * FROM shoppinglist WHERE email ='" . $currentuser . "' ";
                                  if ($result = mysqli_query($connection, $sql6)) {
                                      while ($row = mysqli_fetch_assoc($result)) {
-                                         echo '<form method="POST" action="#" ">';
-                                         echo '<tr>';
-                                         echo '<td > ';
-                                         echo $row['shoppingListName'];
-                                         echo '<input type="hidden" name="shoppingName" value="' . $row['shoppingListName'] . '">';
-                                         echo '</td>';
-                                         echo '<td> ';
-                                         echo '<button class="btn btn-primary">Share</button>';
-                                         echo '</td>';
-                                         echo '</tr></form>';
-                                     }
-                                 }
+                                     
+                                        echo '<form method="POST" action="sharelist.php"' . $currentuser . '">';
+                                        echo '<tr>';
+                                        echo '<td > ';
+                                        echo $row['shoppingListName'];
+                                        echo '<input type="hidden" name="shoppingName" value="' . $row['shoppingListName'] . '">';
+                                        echo '<input type="hidden" name="grpName7" value="' . $grpName . '">';
+                                        echo '</td>';
+                                        echo '<td> ';
+                                        echo '<button class="btn btn-primary">Share</button>';
+                                        echo '</td>';
+                                        echo '</tr></form>';
+                                    
+                                    }
+}
                                  ?>
                              </table>
-                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
