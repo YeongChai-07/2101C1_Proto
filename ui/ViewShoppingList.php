@@ -1,13 +1,14 @@
 <?php
-	session_start();
+    session_start();
 ?>
+
 <html>
     <head>
-        <title>Shopping</title>
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        
+        <title>Shopping</title>
+        
         <script>
             var itemsRow = 0;
             function checked(param){
@@ -43,6 +44,7 @@
             <li><a href="./GroupInfo.php">Groups</a></li>
             <li><a href="./Settings.php">Settings</a></li>
         </ul>
+        
         <div class="container" style="width:50%; float: left;">
             <br/>
             <h1><?php echo $_GET["list"] ?></h1>
@@ -58,12 +60,12 @@
                         <td><b>Quantity</b></td>
                         <td><b>Bought?</b></td>
                     </tr>
+                    
                     <tr>
                         <td>Milo</td>
                         <td><input type="text" class="text-primary" style="width:80px;" value="Energy"></td>
                         <td><input type="text" class="text-primary" style="width:55px;" value="3"></td>
                         <td onclick="checked(this)"><button type="button" class="btn btn-default"><span class="glyphicon glyphicon-unchecked"></span></button></td>
-                        
                     </tr>
                     
                     <tr>
