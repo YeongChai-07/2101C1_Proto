@@ -183,8 +183,7 @@
         }
 
 //End of function
-        //$emailAdd = $_SESSION['email'];
-        $emailAdd = "ahtancw123@gmail.com";
+        $emailAdd = $_SESSION['email'];
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo"<script>alert('add status: " . isset($_POST["selectitem"]) . "\\n Update Status: "
