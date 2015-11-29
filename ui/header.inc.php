@@ -22,7 +22,7 @@
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/ui/1.10.1/jquery-ui.min.js"></script>    
 
-    <div class="container-fluid">
+    <div class="container">
         <div class="nav navbar-inverse navbar-fixed-top">
             <div class="navbar-header"><a href="homepage.php" class="navbar-brand">BuyMeLeh!</a>
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
