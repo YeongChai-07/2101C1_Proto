@@ -1,3 +1,3 @@
 <footer class="text-center">
-    <p>Copyright &COPY; 2015 BuyThisLeh!</p>
+    <p>Copyright &COPY; 2015 BuyMeLeh!</p>
 </footer>

@@ -10,7 +10,7 @@
         <div class="container" id="login">
             <div class="col-xs-6 col-md-4">
                 <img src="../images/grocery-bag.jpg" alt="Grocery Bag" class="img-responsive center-block image"/>
-                <h1 class="text-center">BuyThisLeh!</h1>
+                <h1 class="text-center">BuyMeLeh!</h1>
             </div>
         <?php
             // define variables and set to empty values
