@@ -28,7 +28,7 @@
     <body class="container-fluid">
          <?php include 'header.inc.php'; ?>
         <div class="container" style="width:50%; float: left;">
-            <br/>
+            <br/><br>
             <h1> My Shopping Lists </h1>
             <br/><br/>
             <table class="table table-bordered table-hover">

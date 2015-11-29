@@ -20,6 +20,8 @@
                 $userisadmin = TRUE;
             }
         }
+        $currentlist = 'No List Shared';
+        $listID = 0;
         ?>
 
         <div class="row">
@@ -172,6 +174,7 @@
                                                 $row = mysqli_fetch_assoc($result);
                                                 echo '<h4 class="modal-title" id="myModalLabel">';
                                                 echo $row['shoppingListName'];
+                                                $currentlist = $row['shoppingListName'];
                                                 echo'</h4>';
                                             }
                                         }
@@ -181,7 +184,38 @@
                                     }
                                 ?> 
                             </div>
-                            <div class="modal-body"></div>
+                            <div class="modal-body">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th class="col-sm-2">Item Name</th>
+                                            <th class="col-xs-1">Quantity</th>
+                                            <th class="col-sm-2">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                <?php
+                                $sql80 = "SELECT * FROM shoppinglistitem WHERE shoppingListID ='" . $listID . "' ";
+                                if ($result8 = mysqli_query($connection, $sql80)){
+                                    while ($row11 = mysqli_fetch_assoc($result8)){
+                                        $itemID = $row11['itemID'];
+                                        $sql81 = "SELECT * FROM items WHERE itemID ='" . $itemID . "' ";
+                                        $result9 = mysqli_query($connection, $sql81);
+                                        $row12 = mysqli_fetch_assoc($result9);
+                                                echo '<tr><td>';
+                                                echo $row12['itemName'];
+                                                echo'</td><td>';
+                                                echo $row11['shoppingListQty'];
+                                                echo'</td><td>';
+                                                echo $row11['shoppingListDesc'];
+                                                echo '</td>';
+                                                echo '</tr>';
+                                                }
+                                }
+                                ?>
+                                        </tbody>
+                                </table>
+                            </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             </div>
@@ -192,11 +226,21 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
+                                <table>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Share List</h4>
+                                <tr><td class="col-md-3"><h4 class="modal-title" id="myModalLabel">Choose List To Share</h4></td>
+                                    <td class="col-md-3"><h5>Current List Being Share : <?php echo $currentlist ?></h5></td></tr>
+                                </table>
+                                
                             </div>
                             <div class="modal-body"> 
                                 <table>
+                                    <thead>
+                                        <tr>
+                                            <th class="col-sm-2">List Name</th>
+                                            <th class="col-sm-2">Share List</th>
+                                        </tr>
+                                    </thead>
                                     <?php
                                         $sql6 = "SELECT * FROM shoppinglist WHERE email ='" . $currentuser . "' ";
                                         if ($result = mysqli_query($connection, $sql6)){
