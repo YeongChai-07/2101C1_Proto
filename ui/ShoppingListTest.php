@@ -1,41 +1,20 @@
 <!DOCTYPE html>
-<?php
-session_start();
-?>
+<?php include 'header.inc.php'; ?>
 
 
 <html>
     <head>
         <title>Shopping List</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="js/datepicker2.1/datepickr.css">
-        <script src="js/datepicker2.1/datepickr.js"></script>
-        <script src="js/datepicker2.1/datepickr.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../js/datepicker2.1/datepickr.css">
+        <script src="../js/datepicker2.1/datepickr.js"></script>
+        <script src="../js/datepicker2.1/datepickr.min.js"></script>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <script src="js/libs/twitter-bootstrap/"></script>
 
         <script>
-            function checkEmptyInput() {
-                var shoppingListQty = document.forms["newShoppingListItemForm"]["newShoppingListQty"].value;
-//                    var patt = *[0-9]*;
-                if (shoppingListQty == "") {
-                    alert("Your Quantity can't be empty. Please enter a value");
-                    return false;
-                }
-//                        else if (shoppingListQty == patt){
-//                            alert("You have input an alphabet. Please enter a number");
-//                            return false;
-//                        }
-                else {
-                    return true;
-                }
-            }
-
-
-
-
             function updateList() {
                 var updateItemQty = document.forms["updateShoppingList"]["updateQty"].value;
                 var updateItemDesc = document.forms["updateShoppingList"]["updateDesc"].value;
@@ -61,6 +40,13 @@ session_start();
         function uploadList(){
             alert("Shopping List online has been updated");
         }
+		function clearTable(){
+				document.getElementById("addList").innerHTML = "";
+			}
+		function removeShoppingItem(inItemName)
+			{
+				document.getElementById("delItems_ID").value=inItemName;
+			}
             
         </script>
         <style>
@@ -128,19 +114,16 @@ session_start();
 
     </head>
     <body class="container-fluid">
-        <ul class="nav nav-tabs">
-            <li><a href="./ItemList.php">Item</a></li>
-            <li class="active"><a href="./HomePage.php">Shopping</a></li>
-            <li><a href="./Groups.php">Groups</a></li>
-            <li><a href="./Settings.php">Settings</a></li>
-        </ul>
-
         <!-- Top Left Container -->
         <?php
         $selectedItem = "";
         $selectedQuantity = "";
         $selectedDescription = "";
         $urgency = "-";
+		$selectedShoppingList_ID = -1;
+		$selectedItem_ID = -1;
+		$shoppingListName="";
+		//echo "<script>alert('".$shoppingListName."');</script>";
 
         function item_input($data) {
             $data = trim($data);
@@ -148,17 +131,258 @@ session_start();
             $data = htmlspecialchars($data);
             return $data;
         }
+		function populateShoppingList_Items($shoppingListItems_Data)
+		{
+			$tableData_HTML = "";
+			echo '<script type="text/javascript">alert(\'ROWS: '. mysqli_num_rows($shoppingListItems_Data).'\');</script>';
+			
+			//Encode the Table Header Row FIRST
+			$tableData_HTML.="\r\n    <tr>\r\n".
+			"        <td>\r\n".
+			"            <b>Item</b>\r\n".
+			"        </td>\r\n".
+			"        <td>\r\n".
+			"            <b>Description</b>\r\n".
+			"        </td>\r\n".
+            "        <td>\r\n".
+			"            <b>Quantity</b>\r\n".
+			"        </td>\r\n".
+            "        <td>\r\n".
+			"            <b>Delete?</b>\r\n".
+			"        </td>\r\n".
+			"    </tr>";
+			
+			if(mysqli_num_rows($shoppingListItems_Data) > 0)  // This represents there is at least ONE record of the shopping list item created by the user
+			{
+				$itemCount = 1;
+				while($rowData = mysqli_fetch_assoc($shoppingListItems_Data) )
+				{
+					//Process the Table output...
+				    $tableData_HTML.="\r\n    <tr id=\"row".$itemCount."\">\r\n".
+					"        <td>".$rowData['itemName']."</td>\r\n".
+					"        <td>\r\n".
+					"            <input type=\"text\" name=\"shopItem_DESC". $itemCount. "\" class=\"text-primary text-desc\" value=\"".$rowData['shoppingListDesc']."\">\r\n".
+					"        </td>\r\n".
+					"        <td>\r\n".
+					"            <input type=\"text\" name=\"shopItem_Qty". $itemCount. "\" class=\"text-primary text-qty\" value=\"".$rowData['shoppingListQty']."\">\r\n".
+					"        </td>\r\n".
+					"        <td>\r\n".
+					"            <button class=\"btn-danger\" type=\"submit\" onclick=\"removeShoppingItem('".$rowData['shoppingListDesc']."');\" value=\"".$rowData['shoppingListDesc']."\">\r\n".
+					"            <span class=\"glyphicon glyphicon-remove\"></span>\r\n".
+					"            </button>\r\n".
+					"            <input type=\"hidden\" name=\"shopItemID". $itemCount."\" value=\"".$rowData['shoppingListItemID']. "\" />\r\n".
+					"        </td>\r\n".
+					"    </tr>";
+
+					//"            <button class=\"btn-danger\" type=\"submit\" onclick=\"$('#row".$itemCount."').toggle(); value=\"".$rowData[0]."\">\r\n".
+					
+					$itemCount++;
+				}
+				
+			}
+			
+			return $tableData_HTML;
+
+		}//End of function
+		
+		//$emailAdd = $_SESSION['email'];
+		//My Code-testing on email
+	    $emailAdd = 'ahtancw123@gmail.com';
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $selectedItem = $_POST["selectitem"];
-            $selectedQuantity = item_input($_POST["newShoppingListQty"]);
-            $selectedDescription = $_POST["newShoppingListDesc"];
+			echo"<script>alert('add status: ".isset($_POST["selectitem"])."\\n Update Status: " 
+			    .isset($_POST["deleteItems"])."');</script>";
+				
+			if(isset($_POST["selectitem"]))	
+			{
+			    $selectedItem = $_POST["selectitem"];
+                $selectedQuantity = item_input($_POST["newShoppingListQty"]);
+                $selectedDescription = $_POST["newShoppingListDesc"];
+			    $shoppingListName = $_SESSION["selectedShoppingList"];
+				
+				
+			    //Fetch data from the ShoppingList Table
+			    $queryShoppingList = "SELECT shoppingListID FROM `shoppinglist` WHERE shoppingListName ='" . $shoppingListName ."';";
+			    $shoppingListData = mysqli_query($connection, $queryShoppingList, MYSQLI_STORE_RESULT);
+			
+			    while($rowData = mysqli_fetch_row($shoppingListData) )
+			    {
+			        $selectedShoppingList_ID = $rowData[0];
+
+			    }//End While
+				
+			
+			    //Fetch data from the Items Table
+			
+			    $queryItemID = "SELECT itemID FROM `items` WHERE itemName = '" . $selectedItem . "' ".
+				"AND email = '".$emailAdd."';";		
+				
+			    $itemID_Data = mysqli_query($connection, $queryItemID, MYSQLI_STORE_RESULT);
+			
+			    while($rowData = mysqli_fetch_row($itemID_Data) )
+			    {
+			        $selectedItem_ID = $rowData[0];
+
+			    }//End While
+				
+				
+				//Check whether is there this Item in this ShoppingItemList
+				$querySame_ShopItem = "SELECT COUNT(shoppingListItemID) FROM `shoppinglistitem` ". 
+                "WHERE itemID = ".$selectedItem_ID.
+				" AND shoppingListID = ".$selectedShoppingList_ID.";";
+				
+			    $sameShopItem_DATA = mysqli_query($connection, $querySame_ShopItem, MYSQLI_STORE_RESULT);
+				
+				while($rowData = mysqli_fetch_row($sameShopItem_DATA) )
+			    {
+			        $sameShopItem_Count = $rowData[0];
+
+			    }//End While
+			
+			    //IF none was found
+				if($sameShopItem_Count == 0)
+				{
+					if( empty($selectedQuantity) )
+					{
+                        echo "<script type=\"text/javascript\">alert(\"Your Quantity can't be empty. Please enter a value.\");</script>";						
+					}
+					else if(empty($selectedDescription))
+					{
+						echo "<script type=\"text/javascript\">alert(\"Your description can't be empty. Please enter a value.\");</script>";
+					}
+					else
+					{
+					    //Now let's perform a INSERT to the DB
+			            $sql = 'INSERT INTO `shoppinglistitem`(shoppingListID, itemID, shoppingListQty,
+			            shoppingListDesc) VALUES(?, ?, ?, ?);';
+						
+		                if($prepareStmt = mysqli_prepare($connection, $sql))
+			            {
+										
+				            mysqli_stmt_bind_param($prepareStmt, 'iiis', $selectedShoppingList_ID, $selectedItem_ID,
+				            $selectedQuantity, $selectedDescription);
+				            mysqli_stmt_execute($prepareStmt);
+							
+				            // Closes the prepared statement object
+				            mysqli_stmt_close($prepareStmt);
+			            } // end of prepareStatement IF
+					}// End of inner ELSE
+						
+				}
+				if($sameShopItem_Count > 0)
+				{
+					echo "<script type=\"text/javascript\">alert(\"This selected item is already added to this shopping list\");</script>";
+				}
+				
+			}
+			
+			if(isset($_POST["deleteItems"]))
+			{
+				echo "<script>alert('Content: ".$_POST["deleteItems"]."');</script>";
+				$shoppingListName = $_SESSION["selectedShoppingList"];
+				$toDeleteShopItem = $_POST["deleteItems"];
+				
+				if(!empty($_POST["deleteItems"]))
+				{
+					//SQL for DELETION
+				    $queryDel_ShopItem = "DELETE FROM `shoppinglistitem` ".
+				    "WHERE shoppingListDesc = '".$toDeleteShopItem. "' ".
+				    "AND shoppingListID = (SELECT sl.shoppingListID FROM `shoppinglist` AS sl ".
+				    "WHERE sl.shoppingListName = '".$shoppingListName."');" ;
+				
+				    $delResult = mysqli_query($connection, $queryDel_ShopItem);
+				
+				
+				    /*$queryShoppingListItems = "SELECT it.itemName, sli.shoppingListDesc, sli.shoppingListQty ".
+					    		"FROM `shoppinglistitem` AS sli INNER JOIN `items` AS it ".
+					    		"WHERE (it.itemID = sli.itemID) AND ".
+					    		        "( sli.shoppingListID =(SELECT sl.shoppingListID FROM `shoppinglist` AS sl WHERE sl.shoppingListName = '".
+					    				$_SESSION["selectedShoppingList"]."') );";
+									
+				    $shoppingListItems_Data = mysqli_query($connection, $queryShoppingListItems, MYSQLI_STORE_RESULT);
+							
+				    echo populateShoppingList_Items($shoppingListItems_Data);*/
+				}
+				
+				
+				else //empty($_POST["deleteItems"])
+				{
+					$queryCountListItems = "SELECT COUNT(shoppingListID) ".
+							"FROM `shoppinglistitem` AS sli INNER JOIN `items` AS it ".
+							"WHERE (it.itemID = sli.itemID) AND ".
+							        "( sli.shoppingListID =(SELECT sl.shoppingListID FROM `shoppinglist` AS sl WHERE sl.shoppingListName = '".
+									$_SESSION["selectedShoppingList"]."') );";
+									
+					$countListItems_Data = mysqli_query($connection, $queryCountListItems, MYSQLI_STORE_RESULT);
+					$rowData = mysqli_fetch_row($countListItems_Data);
+					
+					$numOfListItems = $rowData[0];
+					
+					$sql="";
+					//$name="deadline";
+					//echo "Deadline : ".$_POST["deadline"];
+					if(!empty($_POST["deadline"]))
+					{
+						$queryUpdateDeadline = "UPDATE `shoppinglist` ".
+                        "SET deadline = '" . $_POST["deadline"]. "' ".
+					    "WHERE shoppingListName = '".$_SESSION["selectedShoppingList"]."';";
+						
+						$updateDeadline_Data = mysqli_query($connection, $queryUpdateDeadline);
+						$_SESSION["shopList_Deadline"] = $_POST["deadline"];
+					}
+					
+					
+					for($i=1;$i<=$numOfListItems;$i++)
+					{
+					  $sql = "UPDATE `shoppinglistitem` ".
+                      "SET shoppingListDesc = '{$_POST["shopItem_DESC".$i]}', shoppingListQty={$_POST["shopItem_Qty".$i]} ".
+					  "WHERE shoppingListItemID = {$_POST["shopItemID".$i]}) );";			  
+					}
+					
+					$updateShopItem_Result = mysqli_query($connection, $sql);
+					
+					
+				}
+			}
+            
         }
+		
+		if($_SERVER["REQUEST_METHOD"] == "GET")
+		{
+			if (isset($_GET["list"])) {
+				$shoppingListName = $_GET["list"];
+				$_SESSION["selectedShoppingList"] = $shoppingListName;
+				
+				echo "<script>alert('".$shoppingListName."');</script>";
+				
+
+				//Fetch data from the ShoppingList Table
+			    $queryDeadline = "SELECT deadline FROM `shoppinglist` WHERE shoppingListName ='" . $shoppingListName ."';";
+				
+				$deadline_Data = mysqli_query($connection, $queryDeadline, MYSQLI_STORE_RESULT);
+				$rowData = mysqli_fetch_row($deadline_Data);
+				
+				if($rowData[0] == "NA")
+				{
+					$urgency = "-";
+				}
+				else
+				{
+					$urgency = $rowData[0];
+				}
+				$_SESSION["shopList_Deadline"] = $urgency;
+		    }
+		}
+		
+		if(isset($_SESSION["shopList_Deadline"]))
+		{
+			$urgency = $_SESSION["shopList_Deadline"];
+		}
 
 
         ?>
         <div class="container" id="container-table">
-<!--            <form name="updateShoppingList"  method="post" role="form">-->
+            <form name="updateShoppingList"  method="POST" onsubmit="clearTable();" role="form">
                 <br/><br/><br/><br/>
                 <div class="panel panel-primary">
                     <div class="panel-heading">
@@ -166,48 +390,19 @@ session_start();
                         <h4 style="float:right; color: black">Urgency date: <?php echo $urgency ?></h4>
                     </div>
                     <table class="table" id="addList" onclick="displayList()">
-                        <tr>
-                            <td><b>Item</b></td>
-                            <td><b>Description</b></td>
-                            <td><b>Quantity</b></td>
-                            <td><b>Delete?</b></td>
-                        </tr>
-                        <tr id="row1">
-                            <td>Milo</td>
-                            <td><input type="text" class="text-primary text-desc" value="Energy"></td>
-                            <td><input type="text" class="text-primary text-qty" value="3"></td>
-                            <td><button class="btn-danger" onclick="$('#row1').toggle();" value="milo"><span class="glyphicon glyphicon-remove"></span></button></td>
-                        </tr>
-                        <tr id="row2">
-                            <td>Beer</td>
-                            <td><input type="text" class="text-primary text-desc" value="Tiger"></td>
-                            <td><input type="text" class="text-primary text-qty"  value="4"></td>
-                            <td><button class="btn-danger" onclick="$('#row2').toggle();" value="Beer"><span class="glyphicon glyphicon-remove"></span></button></td>
-                        </tr>
-                        <tr id="row3">
-                            <td>Tea</td>
-                            <td><input type="text" class="text-primary text-desc" value="Pokka"></td>
-                            <td><input type="text" class="text-primary text-qty"  value="1"></td>
-                            <td><button class="btn-danger" onclick="$('#row3').toggle();" value="Tea"><span class="glyphicon glyphicon-remove"></span></button></td>
-                        </tr>                            
-                        <?php
-                        if (isset($_POST["selectitem"])) {
-
-                            echo '<tr id="row4">';
-                            echo '<td>';
-                            echo $selectedItem;
-                            echo '</td>';
-                            echo '<td><input type="text" class="text-primary text-desc" value=" ' . $selectedDescription . '">';
-                            echo '</td>';
-                            echo '<td><input type="text" class="text-primary text-qty" value=" ' . $selectedQuantity . '">';
-                            echo '</td>';
-                            echo '<td><button class="btn-danger" " value=" ' . $selectedItem . ' "' ?> onclick="$('#row4').toggle();
-                            <?php
-                            echo '"><span class="glyphicon glyphicon-remove"></span></button></td>';
-                            echo '</tr>';
-                        }
-                        ?>
+		            <?php
+						    $queryShoppingListItems = "SELECT it.itemName, sli.shoppingListItemID, sli.shoppingListDesc, sli.shoppingListQty ".
+							"FROM `shoppinglistitem` AS sli INNER JOIN `items` AS it ".
+							"WHERE (it.itemID = sli.itemID) AND ".
+							        "( sli.shoppingListID =(SELECT sl.shoppingListID FROM `shoppinglist` AS sl WHERE sl.shoppingListName = '".
+									$_SESSION["selectedShoppingList"]."') );";
+									
+							$shoppingListItems_Data = mysqli_query($connection, $queryShoppingListItems, MYSQLI_STORE_RESULT);
+							
+							echo populateShoppingList_Items($shoppingListItems_Data);
+                        ?>			
                     </table>
+					<input type="hidden" name="deleteItems" id="delItems_ID">
 
                 </div>
 
@@ -227,44 +422,39 @@ session_start();
                     <div class="row">
                         <div class="col-sm-1"><h3 class="h3">By : </h3></div>
                         <div class="col-sm-1" >
-                            <input id="datepick" size="20">
+                            <input id="datepick" size="20" name="deadline">
                             <script type="text/javascript">
                                     new datepickr('datepick');</script>
                         </div>
                     </div>
 
                 </div>
-<!--            </form>-->
+            </form>
         </div>
 
         <!-- Right Container -->
         <div class="container" id="container-add">
             <h2 class="h2" id="h2-add"><?php echo $_GET["list"] ?></h2>
 
-            <form name="newShoppingListItemForm" onsubmit="return checkEmptyInput();" method="post" role="form" >
+            <!--form name="newShoppingListItemForm" onsubmit="return checkEmptyInput();" method="post" role="form" -->
+			<form name="newShoppingListItemForm" onsubmit="clearTable();" method="POST" role="form">
                 <h3 class="h3">Add things to buy :</h3>
                 <br/>
-                <script type="text/javascript">
-                    $(document.body).on('click', '.dropdown-menu li', function (event) {
-
-                        var $target = $(event.currentTarget);
-
-                        $target.closest('.btn-group')
-                                .find('[data-bind="label"]').text($target.text())
-                                .end()
-                                .children('.dropdown-toggle').dropdown('toggle');
-
-                        return false;
-
-                    });
-                </script>
                 <div class="btn-group"  >                       
                     <select class="btn btn-default dropdown-toggle form-control" id="dropdown-add" name="selectitem">
-                        <option value="Pizza">Pizza</option>
-                        <option value="Beer">Beer</option>
-                        <option value="Tea">Tea</option>
-                        <option value="Meat">Meat</option>
-                        <option value="Eggs">Eggs</option>
+					    <?php
+						    //echo "<script type=\"text/javascript\">alert('".$emailAdd."');</script>;";
+						    $queryItemList = "SELECT itemName FROM `items` WHERE email = '".$emailAdd."';";
+					        $itemListData = mysqli_query($connection, $queryItemList, MYSQLI_STORE_RESULT);
+					
+					        while($rowData = mysqli_fetch_row($itemListData) )
+					        {
+						        $itemName= $rowData[0];
+							    //echo "<script type=\"text/javascript\">alert('BOO');</script>;";
+							    //echo "\r\n        <li>"."<a href=\"#\" name=\"" .$itemName."\">".$itemName."</a></li>";
+								echo "\r\n        <option value=\"".$itemName."\">".$itemName."</option>";
+					        }//End While
+						?>
                     </select>
                 </div>
                 <br /><br /><br /><br /><br />
