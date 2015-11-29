@@ -183,7 +183,8 @@
         }
 
 //End of function
-        $emailAdd = $_SESSION['email'];
+        //$emailAdd = $_SESSION['email'];
+        $emailAdd = "ahtancw123@gmail.com";
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo"<script>alert('add status: " . isset($_POST["selectitem"]) . "\\n Update Status: "
@@ -238,7 +239,9 @@
                 if ($sameShopItem_Count == 0) {
                     if (empty($selectedQuantity)) {
                         echo "<script type=\"text/javascript\">alert(\"Your Quantity can't be empty. Please enter a value.\");</script>";
-                    } else if (empty($selectedDescription)) {
+                    } else if ((is_numeric( ($selectedQuantity) ) ) == FALSE) {
+					    echo "<script type=\"text/javascript\">alert(\"Your input for Quantity is non-numeric. Please enter a numeric value.\");</script>";	
+					} else if (empty($selectedDescription)) {
                         echo "<script type=\"text/javascript\">alert(\"Your description can't be empty. Please enter a value.\");</script>";
                     } else {
                         //Now let's perform a INSERT to the DB
@@ -274,16 +277,6 @@
 
                     $delResult = mysqli_query($connection, $queryDel_ShopItem);
 
-
-                    /* $queryShoppingListItems = "SELECT it.itemName, sli.shoppingListDesc, sli.shoppingListQty ".
-                      "FROM `shoppinglistitem` AS sli INNER JOIN `items` AS it ".
-                      "WHERE (it.itemID = sli.itemID) AND ".
-                      "( sli.shoppingListID =(SELECT sl.shoppingListID FROM `shoppinglist` AS sl WHERE sl.shoppingListName = '".
-                      $_SESSION["selectedShoppingList"]."') );";
-
-                      $shoppingListItems_Data = mysqli_query($connection, $queryShoppingListItems, MYSQLI_STORE_RESULT);
-
-                      echo populateShoppingList_Items($shoppingListItems_Data); */
                 } else { //empty($_POST["deleteItems"])
                     $queryCountListItems = "SELECT COUNT(shoppingListID) " .
                             "FROM `shoppinglistitem` AS sli INNER JOIN `items` AS it " .
@@ -416,8 +409,6 @@
                         echo '<option value ="default">Choose or type </option>';
                         while ($rowData = mysqli_fetch_row($itemListData)) {
                             $itemName = $rowData[0];
-                            //echo "<script type=\"text/javascript\">alert('BOO');</script>;";
-                            //echo "\r\n        <li>"."<a href=\"#\" name=\"" .$itemName."\">".$itemName."</a></li>";
                             echo "\r\n        <option value=\"" . $itemName . "\">" . $itemName . "</option>";
                         }//End While
                         ?>
