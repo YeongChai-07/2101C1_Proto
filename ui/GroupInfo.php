@@ -5,7 +5,7 @@
 
         <title>Group Information</title>
     </head>
-    <body class="container-fluid">
+    <body class="container container-table">
         <?php include 'header.inc.php'; ?>
         <?php
         $currentuser = $_SESSION['email'];
@@ -24,8 +24,7 @@
         $listID = 0;
         ?>
 
-        <div class="row">
-            <div class="col-xs-8 col-xs-offset-2 navContainSpace">
+            <div class="row col-xs-12 navContainSpace center">
                 <div id='memberName' class="container">
                     <h2><?php echo $grpName; ?></h2>
                     <br/>
@@ -109,6 +108,7 @@
                     }
                 </script>
                 <div id='searchside' class = "container">
+                    <br>
                     <a href="./Groups.php" class="btn btn-danger" role="button" style="float: right">Back</a>
                     <br><br><br>
                     <?php
@@ -280,7 +280,6 @@
                     </div>
                 </div>
             </div>
-        </div>
         <?php include 'footer.inc.php'; ?>
     </body>
 </html>
