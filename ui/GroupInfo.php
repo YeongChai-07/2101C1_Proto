@@ -5,7 +5,7 @@
 
         <title>Group Information</title>
     </head>
-    <body class="container container-table">
+    <body class="container">
         <?php include 'header.inc.php'; ?>
         <?php
         $currentuser = $_SESSION['email'];

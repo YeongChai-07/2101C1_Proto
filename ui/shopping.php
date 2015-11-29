@@ -29,7 +29,9 @@
         </script>
     </head>
     <body class="container-fluid">
-         <?php include 'header.inc.php'; ?>
+         <?php include 'header.inc.php';
+         $user = $_SESSION['email'];
+         ?>
         <div class="container" style="width:50%; float: left;">
             <br/><br>
             <h1> My Shopping Lists </h1>
@@ -102,12 +104,10 @@
 
 						$isPosted = FALSE;	
 						
-					    //$emailAdd = $_SESSION['email'];
-						//My Code-testing on email
-						$emailAdd = 'ahtancw123@gmail.com';
+					    
 						
 						//Fetch data from the ShoppingList Table
-						$queryShoppingList = "SELECT shoppingListName FROM `shoppinglist` WHERE email ='" . $emailAdd ."';";
+						$queryShoppingList = "SELECT shoppingListName FROM `shoppinglist` WHERE email ='" . $user ."';";
 						$shoppingListData = mysqli_query($connection, $queryShoppingList, MYSQLI_STORE_RESULT);
 						
 					    if ($_SERVER["REQUEST_METHOD"] == "POST")
@@ -125,7 +125,7 @@
 									{
 										$deadlineDefault_val = 'NA';
 										
-									    mysqli_stmt_bind_param($prepareStmt, 'sss', $emailAdd, $shoppingListName, $deadlineDefault_val );
+									    mysqli_stmt_bind_param($prepareStmt, 'sss', $user, $shoppingListName, $deadlineDefault_val );
 									    mysqli_stmt_execute($prepareStmt);
 									    // Closes the prepared statement object
 									    mysqli_stmt_close($prepareStmt);
@@ -134,12 +134,12 @@
 									//Fetch data from the ShoppingList Table
 						            //$queryShoppingList = "SELECT shoppingListName FROM `shoppinglist` WHERE email ='" . $inEmail ."';";
 						            $shoppingListData = mysqli_query($connection, $queryShoppingList, MYSQLI_STORE_RESULT);
-									echo populateShoppingList_CurrUser($emailAdd, $shoppingListData);
+									echo populateShoppingList_CurrUser($user, $shoppingListData);
 											
 								}//end of !empty
 								else //Empty field
 								{
-									echo '<script type="text/javascript">alert(\'BOO :(\');</script>';
+									echo '<script type="text/javascript">alert(\'List Name Cannot Be Empty\');</script>';
 									
 									
 								}
@@ -174,7 +174,7 @@
 												/*******     ELSE Block *******/
 						if(!$isPosted)
 						{
-							echo populateShoppingList_CurrUser($emailAdd, $shoppingListData);
+							echo populateShoppingList_CurrUser($user, $shoppingListData);
 						}
                             echo '</tr>';
                     ?>
