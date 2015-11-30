@@ -124,7 +124,6 @@
         $selectedItem_ID = -1;
         $shoppingListName = "";
 
-        //echo "<script>alert('".$shoppingListName."');</script>";
 
         function item_input($data) {
             $data = trim($data);
