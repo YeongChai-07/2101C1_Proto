@@ -6,7 +6,16 @@
 	<title>Groups</title>
         
         <script src="../js/GroupsMain/GroupsMain.js"></script>
-        
+        <script>
+                    function checkEmptyGrpName(){
+                        var NameInput = document.forms["newGroupForm"]["newGrpName"].value;
+                        if (NameInput == ""){
+                            alert("New group name can't be empty!");
+                            return false;
+                        }
+                        return true;
+                    }
+        </script>
         <?php
             include "./classes/GroupsInvitation.php";
 
@@ -102,7 +111,7 @@
                         ?>
                     </table>
                 </div>
-                <form role="form" method="post" class="col-xs-6" action="Groups.php">
+                <form role="form" name="newGroupForm" onsubmit="return checkEmptyGrpName();" method="post" class="col-xs-6" action="Groups.php">
                     <div class="form-group">
                         <label for="createGrp_Name">Create New</label>
                         <input type="text" class="form-control" id="newGrpName" name="newGrpName" placeholder="Enter new group name here"/>
