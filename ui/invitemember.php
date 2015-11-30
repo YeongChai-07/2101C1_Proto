@@ -13,7 +13,9 @@
         if ($doexist = mysqli_query($connection, $notexist)){
             while ($statement1 = mysqli_fetch_assoc($doexist)){
               if ($statement1['email'] == $newname){
-                  header('location: ../ui/GroupInfo.php?id='.$grpname);
+                  echo "<script> alert('User already in group'); "
+            . "window.location.href='Groupinfo.php?id=$grpname'; </script>";
+                 // header('location: ../ui/GroupInfo.php?id='.$grpname);
               }  
             }
         }
@@ -29,6 +31,7 @@
                     if ($statement = mysqli_prepare($connection, $sql)){
                         mysqli_stmt_bind_param($statement, 'sss', $newname, $grpname, $pending);
                         mysqli_stmt_execute($statement);
+                        header('location: ../ui/GroupInfo.php?id='.$grpname);
                     }
                     
                 }
@@ -41,6 +44,6 @@
             . "window.location.href='Groupinfo.php?id=$grpname'; </script>";
       
        }
-        //header('location: ../ui/GroupInfo.php?id='.$grpname);
+        
     }
 ?>
