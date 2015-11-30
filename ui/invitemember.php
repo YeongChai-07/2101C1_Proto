@@ -8,7 +8,16 @@
         $grpname = ($_POST["grpName"]);
         echo $newname;
         echo $grpname;
-
+        
+        $notexist = "SELECT * FROM groups WHERE groupName ='" . $grpname . "'AND email ='" . $newname . "' ";
+        if ($doexist = mysqli_query($connection, $notexist)){
+            while ($statement1 = mysqli_fetch_assoc($doexist)){
+              if ($statement1['email'] == $newname){
+                  header('location: ../ui/GroupInfo.php?id='.$grpname);
+              }  
+            }
+        }
+        
         $check = "SELECT * FROM user";
         if ($result = mysqli_query($connection, $check)){
             $checkDup = TRUE;
