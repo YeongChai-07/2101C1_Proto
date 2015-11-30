@@ -247,11 +247,11 @@
 						else {
 							//Now let's perform a INSERT to the DB
 							$sql = 'INSERT INTO `shoppinglistitem`(shoppingListID, itemName, shoppingListQty,
-							shoppingListDesc) VALUES(?, ?, ?, ?);';
+							shoppingListDesc, is_Checked) VALUES(?, ?, ?, ?, ?);';
 
 							if ($prepareStmt = mysqli_prepare($connection, $sql)) {
-
-								mysqli_stmt_bind_param($prepareStmt, 'isis', $selectedShoppingList_ID, $selectedItem, $selectedQuantity, $selectedDescription);
+                                $isCheckedDefault_val = 0;
+								mysqli_stmt_bind_param($prepareStmt, 'isisi', $selectedShoppingList_ID, $selectedItem, $selectedQuantity, $selectedDescription,$isCheckedDefault_val);
 								mysqli_stmt_execute($prepareStmt);
 
 								// Closes the prepared statement object
@@ -314,9 +314,9 @@
                         $sql = "UPDATE `shoppinglistitem` " .
                                 "SET shoppingListDesc = '{$_POST["shopItem_DESC" . $i]}', shoppingListQty={$_POST["shopItem_Qty" . $i]} " .
                                 "WHERE shoppingListItemID = {$_POST["shopItemID" . $i]};";
+						$updateShopItem_Result = mysqli_query($connection, $sql);
                     }
 
-                    $updateShopItem_Result = mysqli_query($connection, $sql);
                 }
             }
         }
