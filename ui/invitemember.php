@@ -9,20 +9,28 @@
         echo $newname;
         echo $grpname;
 
-        $sql2 = "SELECT * FROM user WHERE email ='" .$newname . "' ";
-        if ($statement = mysqli_prepare($connection, $sql2)){
-            $sql = "INSERT INTO groups (email, groupName, groupCreator) VALUES (?,?,?)";
-            if ($statement = mysqli_prepare($connection, $sql)){
-                mysqli_stmt_bind_param($statement, 'sss', $newname, $grpname, $pending);
-                mysqli_stmt_execute($statement);
-            }
+        $check = "SELECT * FROM user";
+        if ($result = mysqli_query($connection, $check)){
+            $checkDup = TRUE;
+            while ($statement = mysqli_fetch_assoc($result)) 
+            {
+                if ($statement['email'] == $newname){
+                    $checkDup = FALSE;
+                    $sql = "INSERT INTO groups (email, groupName, groupCreator) VALUES (?,?,?)";
+                    if ($statement = mysqli_prepare($connection, $sql)){
+                        mysqli_stmt_bind_param($statement, 'sss', $newname, $grpname, $pending);
+                        mysqli_stmt_execute($statement);
+                    }
+                    
+                }
+
+            }    
         }
-        else{
-            echo '<script language="javascript">';
-            echo 'alert("User does not exist")';
-            echo '</script>';
-        }
-        
+
+//        if ($checkDup){
+//            echo "<script> alert('User does not exist'); window.location.href='ui//GroupInfo.php?id='.$grpname; </script>";
+//        
+//        }
         header('location: ../ui/GroupInfo.php?id='.$grpname);
     }
 ?>
