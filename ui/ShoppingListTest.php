@@ -248,7 +248,7 @@
                 //IF none was found
                 if ($sameShopItem_Count == 0) {
                     if (empty($selectedQuantity)) {
-                        echo "<script type=\"text/javascript\">alert(\"Your Quantity can't be empty. Please enter a value.\");</script>";
+                       $selectedQuantity=1; //Just need to set to default quantity:1
                     } else if ((is_numeric( ($selectedQuantity) ) ) == FALSE) {
 					    echo "<script type=\"text/javascript\">alert(\"Your input for Quantity is non-numeric. Please enter a numeric value.\");</script>";	
 					} else if (empty($selectedDescription)) {
@@ -429,7 +429,7 @@
 
                 <div class="row">
                     <div class="col-sm-4"><h3 class="h3">Quantity : </h3></div>
-                    <div class="col-sm-5" id="qtyCol" ><input type="text" name="newShoppingListQty" class="text-primary" id="newShoppingListQty"></div>
+                    <div class="col-sm-5" id="qtyCol" ><input type="text" name="newShoppingListQty" placeholder="1" class="text-primary" id="newShoppingListQty"></div>
 
                 </div>
                 <div class="row">

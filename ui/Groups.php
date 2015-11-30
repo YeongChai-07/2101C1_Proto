@@ -119,7 +119,7 @@
                     <table class="table table-hover table-bordered" id="testTableData">
                         <tr>
                             <th class="col-xs-4">Group Name</th>
-                            <th class="col-xs-4">Email Address</th>
+                            <th class="col-xs-4">Group Creator</th>
                             <th class="col-xs-2 center-text">Accept Invitation</th>
                             <th class="col-xs-2 center-text">Decline Invitation</th>
                         </tr>
@@ -127,6 +127,9 @@
                             $sql2 ="SELECT * FROM groups where email ='" .$email . "' AND groupCreator = '3'";
                             if ($result = mysqli_query($connection, $sql2)){
                                 while ($row = mysqli_fetch_assoc($result)){
+                                    $findCreator = "SELECT email FROM groups where groupName='".$row['groupName']."' and groupCreator='1'";
+                                    $creatorResult = mysqli_query($connection, $findCreator);
+                                    $creatorName = mysqli_fetch_assoc($creatorResult);
                                     echo '<form method="POST" action="invitation.php">';
                                     echo '<tr>';
                                     echo '<td>';
@@ -134,7 +137,7 @@
                                     echo '<input type="hidden" name="grpName3" value="'.$row['groupName'].'">';
                                     echo '</td>';
                                     echo '<td>';
-                                    echo $row['email'];
+                                    echo $creatorName['email'];
                                     echo '<input type="hidden" name="newName3" value="'.$row['email'].'">';
                                     echo '<td>';
                                     echo '<button class="glyphicon glyphicon-ok btn btn-success center-block"></button>';
