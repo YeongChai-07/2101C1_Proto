@@ -134,7 +134,7 @@
 
         function populateShoppingList_Items($shoppingListItems_Data) {
             $tableData_HTML = "";
-//            echo '<script type="text/javascript">alert(\'ROWS: ' . mysqli_num_rows($shoppingListItems_Data) . '\');</script>';
+            //echo '<script type="text/javascript">alert(\'ROWS: ' . mysqli_num_rows($shoppingListItems_Data) . '\');</script>';
 
             //Encode the Table Header Row FIRST
             $tableData_HTML.="\r\n    <tr>\r\n" .
@@ -209,12 +209,14 @@
 
 					}
                 }
+				//echo $selectedItem;
                 if(!empty($selectedItem))
 				{                
-                
+                    //echo "Shop List Name : " . $shoppingListName;
 					//Fetch data from the ShoppingList Table
 					$queryShoppingList = "SELECT shoppingListID FROM `shoppinglist` WHERE shoppingListName ='" . $shoppingListName . "';";
 					$shoppingListData = mysqli_query($connection, $queryShoppingList, MYSQLI_STORE_RESULT);
+					
 
 					while ($rowData = mysqli_fetch_row($shoppingListData)) {
 						$selectedShoppingList_ID = $rowData[0];
@@ -232,7 +234,8 @@
 					//Check whether is there this Item in this ShoppingItemList
 					$querySame_ShopItem = "SELECT COUNT(shoppingListItemID) FROM `shoppinglistitem` " .
 							"WHERE itemID = " . $selectedItem_ID .
-							" AND shoppingListID = " . $selectedShoppingList_ID . ";";
+							" AND shoppingListID = " . $selectedShoppingList_ID . ";";		
+
 
 					$sameShopItem_DATA = mysqli_query($connection, $querySame_ShopItem, MYSQLI_STORE_RESULT);
 
@@ -372,7 +375,7 @@
 
         $shoppingListItems_Data = mysqli_query($connection, $queryShoppingListItems, MYSQLI_STORE_RESULT);
 
-//        echo populateShoppingList_Items($shoppingListItems_Data);
+        echo populateShoppingList_Items($shoppingListItems_Data);
         ?>			
                     </table>
                     <input type="hidden" name="deleteItems" id="delItems_ID">
@@ -432,7 +435,7 @@
 
                 <div class="row">
                     <div class="col-sm-4"><h3 class="h3">Quantity : </h3></div>
-                    <div class="col-sm-5" id="qtyCol" ><input type="text" name="newShoppingListQty" placeholder="1" class="text-primary" id="newShoppingListQty"></div>
+                    <div class="col-sm-5" id="qtyCol" ><input type="text" name="newShoppingListQty" value="1" class="text-primary" id="newShoppingListQty"></div>
 
                 </div>
                 <div class="row">
