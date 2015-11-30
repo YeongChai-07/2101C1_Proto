@@ -6,12 +6,14 @@
     <head>
         <title>Shopping List</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="../js/datepicker2.1/datepickr.css">
+		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+ <!--       <link rel="stylesheet" type="text/css" href="../js/datepicker2.1/datepickr.css"> -->
         <script src="../js/datepicker2.1/datepickr.js"></script>
         <script src="../js/datepicker2.1/datepickr.min.js"></script>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
         <script src="js/libs/twitter-bootstrap/"></script>
 
         <script>
@@ -221,21 +223,11 @@
 					while ($rowData = mysqli_fetch_row($shoppingListData)) {
 						$selectedShoppingList_ID = $rowData[0];
 					}//End While
-					//Fetch data from the Items Table
-
-					$queryItemID = "SELECT itemID FROM `items` WHERE itemName = '" . $selectedItem . "' " .
-							"AND email = '" . $emailAdd . "';";
-
-					$itemID_Data = mysqli_query($connection, $queryItemID, MYSQLI_STORE_RESULT);
-
-					while ($rowData = mysqli_fetch_row($itemID_Data)) {
-						$selectedItem_ID = $rowData[0];
-					}//End While
+					
 					//Check whether is there this Item in this ShoppingItemList
 					$querySame_ShopItem = "SELECT COUNT(shoppingListItemID) FROM `shoppinglistitem` " .
-							"WHERE itemID = " . $selectedItem_ID .
-							" AND shoppingListID = " . $selectedShoppingList_ID . ";";		
-
+							"WHERE itemName = '" . $selectedItem .
+							"' AND shoppingListID = " . $selectedShoppingList_ID . ";";		
 
 					$sameShopItem_DATA = mysqli_query($connection, $querySame_ShopItem, MYSQLI_STORE_RESULT);
 
@@ -254,12 +246,12 @@
 	//                    }
 						else {
 							//Now let's perform a INSERT to the DB
-							$sql = 'INSERT INTO `shoppinglistitem`(shoppingListID, itemID, shoppingListQty,
+							$sql = 'INSERT INTO `shoppinglistitem`(shoppingListID, itemName, shoppingListQty,
 							shoppingListDesc) VALUES(?, ?, ?, ?);';
 
 							if ($prepareStmt = mysqli_prepare($connection, $sql)) {
 
-								mysqli_stmt_bind_param($prepareStmt, 'iiis', $selectedShoppingList_ID, $selectedItem_ID, $selectedQuantity, $selectedDescription);
+								mysqli_stmt_bind_param($prepareStmt, 'isis', $selectedShoppingList_ID, $selectedItem, $selectedQuantity, $selectedDescription);
 								mysqli_stmt_execute($prepareStmt);
 
 								// Closes the prepared statement object
@@ -296,7 +288,7 @@
                 } else { //empty($_POST["deleteItems"])
                     $queryCountListItems = "SELECT COUNT(shoppingListID) " .
                             "FROM `shoppinglistitem` AS sli INNER JOIN `items` AS it " .
-                            "WHERE (it.itemID = sli.itemID) AND " .
+                            "WHERE (it.itemName = sli.itemName) AND " .
                             "( sli.shoppingListID =(SELECT sl.shoppingListID FROM `shoppinglist` AS sl WHERE sl.shoppingListName = '" .
                             $_SESSION["selectedShoppingList"] . "') );";
 
@@ -321,7 +313,7 @@
                     for ($i = 1; $i <= $numOfListItems; $i++) {
                         $sql = "UPDATE `shoppinglistitem` " .
                                 "SET shoppingListDesc = '{$_POST["shopItem_DESC" . $i]}', shoppingListQty={$_POST["shopItem_Qty" . $i]} " .
-                                "WHERE shoppingListItemID = {$_POST["shopItemID" . $i]}) );";
+                                "WHERE shoppingListItemID = {$_POST["shopItemID" . $i]};";
                     }
 
                     $updateShopItem_Result = mysqli_query($connection, $sql);
@@ -369,7 +361,7 @@
         <?php
         $queryShoppingListItems = "SELECT it.itemName, sli.shoppingListItemID, sli.shoppingListDesc, sli.shoppingListQty " .
                 "FROM `shoppinglistitem` AS sli INNER JOIN `items` AS it " .
-                "WHERE (it.itemID = sli.itemID) AND " .
+                "WHERE (it.itemName = sli.itemName) AND " .
                 "( sli.shoppingListID =(SELECT sl.shoppingListID FROM `shoppinglist` AS sl WHERE sl.shoppingListName = '" .
                 $_SESSION["selectedShoppingList"] . "') );";
 
@@ -399,8 +391,8 @@
                         <div class="col-sm-1"><h3 class="h3">By : </h3></div>
                         <div class="col-sm-1" >
                             <input id="datepick" size="20" name="deadline">
-                            <script type="text/javascript">
-                                new datepickr('datepick');</script>
+                            <input type="text" id="datepick" size="20" name="deadline" placeholder="Select Date">
+                            <script type="text/javascript">$('#datepick').datepicker({ minDate: 0 });</script>
                         </div>
                     </div>
 
