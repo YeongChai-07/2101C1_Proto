@@ -186,24 +186,35 @@
         $emailAdd = $_SESSION['email'];
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            echo"<script>alert('add status: " . isset($_POST["selectitem"]) . "\\n Update Status: "
-            . isset($_POST["deleteItems"]) . "');</script>";
+//            echo"<script>alert('add status: " . isset($_POST["selectitem"]) . "\\n Update Status: "
+//            . isset($_POST["deleteItems"]) . "');</script>";
 
             if (isset($_POST["selectitem"])) {
                 $selectedItem = $_POST["selectitem"];
                 $selectedQuantity = item_input($_POST["newShoppingListQty"]);
                 $selectedDescription = $_POST["newShoppingListDesc"];
                 $shoppingListName = $_SESSION["selectedShoppingList"];
-                if (isset($_POST["newItem"])) {
-                    $newItem = $_POST["newItem"];
+                if (!empty($_POST["newItem"])) {
+                    $itemExist = FALSE;
+                     $newItem = $_POST["newItem"];
+                    $sql11 = "SELECT * FROM items";
+                    if ($result = mysqli_query($connection, $sql11)){
+                        while ($row11 = mysqli_fetch_assoc($result)){
+                            if ($row11['itemName'] == $newItem){
+                             $itemExist = TRUE;   
+                            } 
+                        }
+                        if (!$itemExist){
+                          
                     $sql22 = "INSERT INTO items (itemName, email) VALUES(?,?)";
                     if ($statement = mysqli_prepare($connection, $sql22)) 
                     {
                         mysqli_stmt_bind_param($statement, 'ss', $newItem, $emailAdd);
                         mysqli_stmt_execute($statement);
                     }
-                    $selectedItem = $newItem;
-                }
+                    $selectedItem = $newItem; 
+                        }
+                    }}
                 
                 
 
