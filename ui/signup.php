@@ -80,7 +80,7 @@
                         $sql = "INSERT INTO user (email, password) VALUES (?,?)";
 
                         if ($statement = mysqli_prepare($connection, $sql)){
-                            mysqli_stmt_bind_param($statement, 'ss', $email, $pword1);
+                            mysqli_stmt_bind_param($statement, 'ss', $email, sha1($pword1));
                             mysqli_stmt_execute($statement);
                         }
 
