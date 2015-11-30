@@ -36,10 +36,11 @@
             }    
         }
 
-//        if ($checkDup){
-//            echo "<script> alert('User does not exist'); window.location.href='ui//GroupInfo.php?id='.$grpname; </script>";
-//        
-//        }
-        header('location: ../ui/GroupInfo.php?id='.$grpname);
+        if ($checkDup){
+            echo "<script> alert('User does not exist'); "
+            . "window.location.href='Groupinfo.php?id=$grpname'; </script>";
+      
+       }
+        //header('location: ../ui/GroupInfo.php?id='.$grpname);
     }
 ?>

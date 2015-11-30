@@ -282,12 +282,6 @@
                     </div>
                 </div>
             </div>
-        <?php
-if ( !$_SESSION["invite"]){
-//    $message = "wrong answer";
-//    echo "<script type='text/javascript'>alert('$message');</script>";
-}
-?>
         <?php include 'footer.inc.php'; ?>
     </body>
 </html>
