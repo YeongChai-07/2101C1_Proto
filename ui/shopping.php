@@ -23,10 +23,6 @@
                 }
                 return true;
             }
-            
-            function clearTable(){
-                document.getElementById("shoppingList_REC").innerHTML = "";
-            }
 
             function removeShoppingList(inList_Name){
                 document.getElementById("delShopList_ID").value = inList_Name;
@@ -34,9 +30,6 @@
         </script>
     </head>
     <body class="container-fluid">
-        <?php
-            $validNewList_Val = TRUE;
-        ?>
         <div class="container navContainSpace">
             <div class="row">
                 <div class="col-xs-5 col-xs-offset-2">
@@ -75,20 +68,35 @@
                             if (isset($_POST["newList"])){
                                 $shoppingListName = $_POST["newList"];
                                 if (!empty($shoppingListName)){ //Check whether is the input empty
-                                    //Process the creation of this shopping list
-                                    $sql = 'INSERT INTO `shoppinglist`(email, shoppingListName, deadline) VALUES(?, ?, ?);';
-                                    if ($prepareStmt = mysqli_prepare($connection, $sql)){
-                                        $deadlineDefault_val = 'NA';
+								    //Before we add check whether is there such 
+									//shoppinglist with the same name that exists 
+					                $querySame_ShopList = "SELECT COUNT(shoppingListName) FROM `shoppinglist` " .
+							        "WHERE shoppingListName = '" . $shoppingListName . "';";
+									$sameShopList_DATA = mysqli_query($connection, $querySame_ShopList, MYSQLI_STORE_RESULT);
+									
+									$rowData = mysqli_fetch_row($sameShopList_DATA);
+									$sameShopList_Count = $rowData[0];
+									
+									if($sameShopList_Count == 0) //IF none was found
+									{
+										//Process the creation of this shopping list
+										$sql = 'INSERT INTO `shoppinglist`(email, shoppingListName, deadline) VALUES(?, ?, ?);';
+										if ($prepareStmt = mysqli_prepare($connection, $sql)){
+											$deadlineDefault_val = 'NA';
 
-                                        mysqli_stmt_bind_param($prepareStmt, 'sss', $user, $shoppingListName, $deadlineDefault_val);
-                                        mysqli_stmt_execute($prepareStmt);
-                                        // Closes the prepared statement object
-                                        mysqli_stmt_close($prepareStmt);
-                                    }
+											mysqli_stmt_bind_param($prepareStmt, 'sss', $user, $shoppingListName, $deadlineDefault_val);
+											mysqli_stmt_execute($prepareStmt);
+											// Closes the prepared statement object
+											mysqli_stmt_close($prepareStmt);
+										}
+									}// End of $sameShopList_Count IF block
+									else
+									{
+										echo "<script type=\"text/javascript\">alert(\"The entered shopping list name already exists.\");</script>";
+									}
                                 }
                                 else{
                                     echo '<script type="text/javascript">alert(\'List Name Cannot Be Empty\');</script>';
-                                    $validNewList_Val = FALSE;
                                 }
                             }
                             if (isset($_POST["deleteShopList"])){
@@ -122,13 +130,11 @@
                             }
                         }
 
-                        if ($validNewList_Val == TRUE){
                             //Fetch data from the ShoppingList Table
                             $queryShoppingList = "SELECT shoppingListName FROM `shoppinglist` WHERE email ='" . $user . "';";
                             $shoppingListData = mysqli_query($connection, $queryShoppingList, MYSQLI_STORE_RESULT);
-                        }
                     ?>
-                    <form name="deleteShoppingList" action="shopping.php" method="POST" onsubmit="clearTable();" role="form">
+                    <form name="deleteShoppingList" action="shopping.php" method="POST" role="form">
                         <table class="table table-bordered table-hover" id="shoppingList_REC">
                             <?php echo populateShoppingList_CurrUser($user, $shoppingListData); ?>				
                         </table>
@@ -137,7 +143,7 @@
                 </div>
                 <div class="col-xs-5">
                     <h3>Add List: </h3>
-                    <form name="newListForm" action="shopping.php" method="POST" class="right" onsubmit="clearTable();">
+                    <form name="newListForm" action="shopping.php" method="POST" class="right">
                         <input type="text" name="newList" placeholder="Insert list name here">
                         <button class="btn btn-default">Submit</button>
                     </form>
