@@ -193,86 +193,88 @@
                 $selectedQuantity = item_input($_POST["newShoppingListQty"]);
                 $selectedDescription = $_POST["newShoppingListDesc"];
                 $shoppingListName = $_SESSION["selectedShoppingList"];
-                if (!empty($_POST["newItem"])) {
-                    $itemExist = FALSE;
-                     $newItem = $_POST["newItem"];
-                    $sql11 = "SELECT * FROM items";
-                    if ($result = mysqli_query($connection, $sql11)){
-                        while ($row11 = mysqli_fetch_assoc($result)){
-                            if ($row11['itemName'] == $newItem){
-                             $itemExist = TRUE;   
-                            } 
+                //if (!empty($_POST["newItem"])) {
+                if ($selectedItem == "default") { //This INDIRECTLY represent $_POST["newItem"] was SET
+                    $newItem = $_POST["newItem"];
+					$selectedItem="";
+					if(!empty($newItem))
+					{
+						$sql22 = "INSERT INTO items (itemName, email) VALUES(?,?)";
+                        if ($statement = mysqli_prepare($connection, $sql22)) 
+                        {
+                            mysqli_stmt_bind_param($statement, 'ss', $newItem, $emailAdd);
+                            mysqli_stmt_execute($statement);
                         }
-                        if (!$itemExist){
-                          
-                    $sql22 = "INSERT INTO items (itemName, email) VALUES(?,?)";
-                    if ($statement = mysqli_prepare($connection, $sql22)) 
-                    {
-                        mysqli_stmt_bind_param($statement, 'ss', $newItem, $emailAdd);
-                        mysqli_stmt_execute($statement);
-                    }
-                    $selectedItem = $newItem; 
-                        }
-                    }}
-                
-                
+                        $selectedItem = $newItem;
 
-                //Fetch data from the ShoppingList Table
-                $queryShoppingList = "SELECT shoppingListID FROM `shoppinglist` WHERE shoppingListName ='" . $shoppingListName . "';";
-                $shoppingListData = mysqli_query($connection, $queryShoppingList, MYSQLI_STORE_RESULT);
-
-                while ($rowData = mysqli_fetch_row($shoppingListData)) {
-                    $selectedShoppingList_ID = $rowData[0];
-                }//End While
-                //Fetch data from the Items Table
-
-                $queryItemID = "SELECT itemID FROM `items` WHERE itemName = '" . $selectedItem . "' " .
-                        "AND email = '" . $emailAdd . "';";
-
-                $itemID_Data = mysqli_query($connection, $queryItemID, MYSQLI_STORE_RESULT);
-
-                while ($rowData = mysqli_fetch_row($itemID_Data)) {
-                    $selectedItem_ID = $rowData[0];
-                }//End While
-                //Check whether is there this Item in this ShoppingItemList
-                $querySame_ShopItem = "SELECT COUNT(shoppingListItemID) FROM `shoppinglistitem` " .
-                        "WHERE itemID = " . $selectedItem_ID .
-                        " AND shoppingListID = " . $selectedShoppingList_ID . ";";
-
-                $sameShopItem_DATA = mysqli_query($connection, $querySame_ShopItem, MYSQLI_STORE_RESULT);
-
-                while ($rowData = mysqli_fetch_row($sameShopItem_DATA)) {
-                    $sameShopItem_Count = $rowData[0];
-                }//End While
-                //IF none was found
-                if ($sameShopItem_Count == 0) {
-                    if (empty($selectedQuantity)) {
-                       $selectedQuantity=1; //Just need to set to default quantity:1
-                    } else if ((is_numeric( ($selectedQuantity) ) ) == FALSE) {
-					    echo "<script type=\"text/javascript\">alert(\"Your input for Quantity is non-numeric. Please enter a numeric value.\");</script>";	
-					} 
-//                                        else if (empty($selectedDescription)) {
-//                        echo "<script type=\"text/javascript\">alert(\"Your description can't be empty. Please enter a value.\");</script>";
-//                    }
-                    else {
-                        //Now let's perform a INSERT to the DB
-                        $sql = 'INSERT INTO `shoppinglistitem`(shoppingListID, itemID, shoppingListQty,
-			            shoppingListDesc) VALUES(?, ?, ?, ?);';
-
-                        if ($prepareStmt = mysqli_prepare($connection, $sql)) {
-
-                            mysqli_stmt_bind_param($prepareStmt, 'iiis', $selectedShoppingList_ID, $selectedItem_ID, $selectedQuantity, $selectedDescription);
-                            mysqli_stmt_execute($prepareStmt);
-
-                            // Closes the prepared statement object
-                            mysqli_stmt_close($prepareStmt);
-                        } // end of prepareStatement IF
-                    }// End of inner ELSE
+					}
                 }
-                if ($sameShopItem_Count > 0) {
-                    echo "<script type=\"text/javascript\">alert(\"This selected item is already added to this shopping list\");</script>";
-                }
-            }
+                if(!empty($selectedItem))
+				{                
+                
+					//Fetch data from the ShoppingList Table
+					$queryShoppingList = "SELECT shoppingListID FROM `shoppinglist` WHERE shoppingListName ='" . $shoppingListName . "';";
+					$shoppingListData = mysqli_query($connection, $queryShoppingList, MYSQLI_STORE_RESULT);
+
+					while ($rowData = mysqli_fetch_row($shoppingListData)) {
+						$selectedShoppingList_ID = $rowData[0];
+					}//End While
+					//Fetch data from the Items Table
+
+					$queryItemID = "SELECT itemID FROM `items` WHERE itemName = '" . $selectedItem . "' " .
+							"AND email = '" . $emailAdd . "';";
+
+					$itemID_Data = mysqli_query($connection, $queryItemID, MYSQLI_STORE_RESULT);
+
+					while ($rowData = mysqli_fetch_row($itemID_Data)) {
+						$selectedItem_ID = $rowData[0];
+					}//End While
+					//Check whether is there this Item in this ShoppingItemList
+					$querySame_ShopItem = "SELECT COUNT(shoppingListItemID) FROM `shoppinglistitem` " .
+							"WHERE itemID = " . $selectedItem_ID .
+							" AND shoppingListID = " . $selectedShoppingList_ID . ";";
+
+					$sameShopItem_DATA = mysqli_query($connection, $querySame_ShopItem, MYSQLI_STORE_RESULT);
+
+					while ($rowData = mysqli_fetch_row($sameShopItem_DATA)) {
+						$sameShopItem_Count = $rowData[0];
+					}//End While
+					//IF none was found
+					if ($sameShopItem_Count == 0) {
+						if (empty($selectedQuantity)) {
+						   $selectedQuantity=1; //Just need to set to default quantity:1
+						} else if ((is_numeric( ($selectedQuantity) ) ) == FALSE) {
+							echo "<script type=\"text/javascript\">alert(\"Your input for Quantity is non-numeric. Please enter a numeric value.\");</script>";	
+						} 
+	//                                        else if (empty($selectedDescription)) {
+	//                        echo "<script type=\"text/javascript\">alert(\"Your description can't be empty. Please enter a value.\");</script>";
+	//                    }
+						else {
+							//Now let's perform a INSERT to the DB
+							$sql = 'INSERT INTO `shoppinglistitem`(shoppingListID, itemID, shoppingListQty,
+							shoppingListDesc) VALUES(?, ?, ?, ?);';
+
+							if ($prepareStmt = mysqli_prepare($connection, $sql)) {
+
+								mysqli_stmt_bind_param($prepareStmt, 'iiis', $selectedShoppingList_ID, $selectedItem_ID, $selectedQuantity, $selectedDescription);
+								mysqli_stmt_execute($prepareStmt);
+
+								// Closes the prepared statement object
+								mysqli_stmt_close($prepareStmt);
+							} // end of prepareStatement IF
+						}// End of inner ELSE
+					}
+					if ($sameShopItem_Count > 0) {
+						echo "<script type=\"text/javascript\">alert(\"This selected item is already added to this shopping list\");</script>";
+					}
+				} // End of !Empty(selectedItem) block
+				else 
+				{
+					echo "<script type=\"text/javascript\">alert(\"The selected item is emptied. It is either you left the new item name blank \\n".
+					     "OR you chose an invalid item.\");</script>";
+				}
+
+            } //End of isset($_POST["selectitem"])
 
             if (isset($_POST["deleteItems"])) {
 //                echo "<script>alert('Content: " . $_POST["deleteItems"] . "');</script>";
@@ -353,7 +355,7 @@
         ?>
         <div class="container" id="container-table">
             <br></br>
-            <form name="updateShoppingList"  method="POST" onsubmit="clearTable();" role="form">
+            <form name="updateShoppingList"  method="POST" role="form">
                 <br/>
                 <div class="panel panel-primary">
                     <div class="panel-heading">
@@ -408,7 +410,7 @@
             <h2 class="h2" id="h2-add"><?php echo $_GET["list"] ?></h2>
 
             <!--form name="newShoppingListItemForm" onsubmit="return checkEmptyInput();" method="post" role="form" -->
-            <form name="newShoppingListItemForm" onsubmit="clearTable();" method="POST" role="form">
+            <form name="newShoppingListItemForm" method="POST" role="form">
                 <h3 class="h3">Add things to buy :</h3>
                 <br/>
                 <div class="btn-group"  >                       
