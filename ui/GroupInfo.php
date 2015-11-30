@@ -145,9 +145,11 @@
                                             echo '<input type="hidden" name="grpName5" value="' . $row['groupName'] . '">';
                                             echo '<input type="hidden" name="newName5" value="' . $row['email'] . '">';
                                             echo '</td>';
-                                            echo '<td> ';
-                                            echo '<button class="glyphicon glyphicon-remove btn btn-danger center-block"></button>';
-                                            echo '</td>';
+                                            if ($userisadmin){
+                                                    echo '<td> ';
+                                                    echo '<button class="glyphicon glyphicon-remove btn btn-danger center-block"></button>';
+                                                    echo '</td>';
+                                                }
                                             echo '</tr></form>';
                                         }
                                     }
@@ -280,6 +282,12 @@
                     </div>
                 </div>
             </div>
+        <?php
+if ( !$_SESSION["invite"]){
+//    $message = "wrong answer";
+//    echo "<script type='text/javascript'>alert('$message');</script>";
+}
+?>
         <?php include 'footer.inc.php'; ?>
     </body>
 </html>
