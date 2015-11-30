@@ -134,7 +134,7 @@
 
         function populateShoppingList_Items($shoppingListItems_Data) {
             $tableData_HTML = "";
-            echo '<script type="text/javascript">alert(\'ROWS: ' . mysqli_num_rows($shoppingListItems_Data) . '\');</script>';
+//            echo '<script type="text/javascript">alert(\'ROWS: ' . mysqli_num_rows($shoppingListItems_Data) . '\');</script>';
 
             //Encode the Table Header Row FIRST
             $tableData_HTML.="\r\n    <tr>\r\n" .
@@ -250,9 +250,11 @@
                        $selectedQuantity=1; //Just need to set to default quantity:1
                     } else if ((is_numeric( ($selectedQuantity) ) ) == FALSE) {
 					    echo "<script type=\"text/javascript\">alert(\"Your input for Quantity is non-numeric. Please enter a numeric value.\");</script>";	
-					} else if (empty($selectedDescription)) {
-                        echo "<script type=\"text/javascript\">alert(\"Your description can't be empty. Please enter a value.\");</script>";
-                    } else {
+					} 
+//                                        else if (empty($selectedDescription)) {
+//                        echo "<script type=\"text/javascript\">alert(\"Your description can't be empty. Please enter a value.\");</script>";
+//                    }
+                    else {
                         //Now let's perform a INSERT to the DB
                         $sql = 'INSERT INTO `shoppinglistitem`(shoppingListID, itemID, shoppingListQty,
 			            shoppingListDesc) VALUES(?, ?, ?, ?);';
@@ -273,7 +275,7 @@
             }
 
             if (isset($_POST["deleteItems"])) {
-                echo "<script>alert('Content: " . $_POST["deleteItems"] . "');</script>";
+//                echo "<script>alert('Content: " . $_POST["deleteItems"] . "');</script>";
                 $shoppingListName = $_SESSION["selectedShoppingList"];
                 $toDeleteShopItem = $_POST["deleteItems"];
 
@@ -327,7 +329,7 @@
                 $shoppingListName = $_GET["list"];
                 $_SESSION["selectedShoppingList"] = $shoppingListName;
 
-                echo "<script>alert('" . $shoppingListName . "');</script>";
+//                echo "<script>alert('" . $shoppingListName . "');</script>";
 
 
                 //Fetch data from the ShoppingList Table
@@ -368,7 +370,7 @@
 
         $shoppingListItems_Data = mysqli_query($connection, $queryShoppingListItems, MYSQLI_STORE_RESULT);
 
-        echo populateShoppingList_Items($shoppingListItems_Data);
+//        echo populateShoppingList_Items($shoppingListItems_Data);
         ?>			
                     </table>
                     <input type="hidden" name="deleteItems" id="delItems_ID">
