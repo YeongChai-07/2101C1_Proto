@@ -185,12 +185,11 @@
 
 //End of function
         $emailAdd = $_SESSION['email'];
-
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 //            echo"<script>alert('add status: " . isset($_POST["selectitem"]) . "\\n Update Status: "
 //            . isset($_POST["deleteItems"]) . "');</script>";
-
             if (isset($_POST["selectitem"])) {
+				$checkDup = TRUE;
                 $selectedItem = $_POST["selectitem"];
                 $selectedQuantity = item_input($_POST["newShoppingListQty"]);
                 $selectedDescription = $_POST["newShoppingListDesc"];
@@ -201,13 +200,25 @@
 					$selectedItem="";
 					if(!empty($newItem))
 					{
-						$sql22 = "INSERT INTO items (itemName, email) VALUES(?,?)";
-                        if ($statement = mysqli_prepare($connection, $sql22)) 
-                        {
-                            mysqli_stmt_bind_param($statement, 'ss', $newItem, $emailAdd);
-                            mysqli_stmt_execute($statement);
-                        }
-                        $selectedItem = $newItem;
+						$check = "SELECT * FROM items";
+						if ($result = mysqli_query($connection, $check)){
+							while ($statement = mysqli_fetch_assoc($result)) 
+							{
+								if (strtolower($statement['itemName']) == strtolower($newItem) AND $statement['email'] == $emailAdd){
+									$checkDup = FALSE;
+									echo "<script type=\"text/javascript\">alert(\"Item exists in item list\");</script>";
+								}
+							}   
+						}
+						if ($checkDup){
+							$sql22 = "INSERT INTO items (itemName, email) VALUES(?,?)";
+							if ($statement = mysqli_prepare($connection, $sql22)) 
+							{
+								mysqli_stmt_bind_param($statement, 'ss', $newItem, $emailAdd);
+								mysqli_stmt_execute($statement);
+							}
+							$selectedItem = $newItem;
+						}
 
 					}
                 }
@@ -219,7 +230,6 @@
 					$queryShoppingList = "SELECT shoppingListID FROM `shoppinglist` WHERE shoppingListName ='" . $shoppingListName . "';";
 					$shoppingListData = mysqli_query($connection, $queryShoppingList, MYSQLI_STORE_RESULT);
 					
-
 					while ($rowData = mysqli_fetch_row($shoppingListData)) {
 						$selectedShoppingList_ID = $rowData[0];
 					}//End While
@@ -228,9 +238,7 @@
 					$querySame_ShopItem = "SELECT COUNT(shoppingListItemID) FROM `shoppinglistitem` " .
 							"WHERE itemName = '" . $selectedItem .
 							"' AND shoppingListID = " . $selectedShoppingList_ID . ";";		
-
 					$sameShopItem_DATA = mysqli_query($connection, $querySame_ShopItem, MYSQLI_STORE_RESULT);
-
 					while ($rowData = mysqli_fetch_row($sameShopItem_DATA)) {
 						$sameShopItem_Count = $rowData[0];
 					}//End While
@@ -249,12 +257,10 @@
 							//Now let's perform a INSERT to the DB
 							$sql = 'INSERT INTO `shoppinglistitem`(shoppingListID, itemName, shoppingListQty,
 							shoppingListDesc, is_Checked) VALUES(?, ?, ?, ?, ?);';
-
 							if ($prepareStmt = mysqli_prepare($connection, $sql)) {
                                 $isCheckedDefault_val = 0;
 								mysqli_stmt_bind_param($prepareStmt, 'isisi', $selectedShoppingList_ID, $selectedItem, $selectedQuantity, $selectedDescription,$isCheckedDefault_val);
 								mysqli_stmt_execute($prepareStmt);
-
 								// Closes the prepared statement object
 								mysqli_stmt_close($prepareStmt);
 							} // end of prepareStatement IF
@@ -266,12 +272,13 @@
 				} // End of !Empty(selectedItem) block
 				else 
 				{
-					echo "<script type=\"text/javascript\">alert(\"The selected item is emptied. It is either you left the new item name blank \\n".
+					if($checkDup){
+						echo "<script type=\"text/javascript\">alert(\"The selected item is empty. It is either you left the new item name blank \\n".
 					     "OR you chose an invalid item.\");</script>";
+					}
+					
 				}
-
             } //End of isset($_POST["selectitem"])
-
             if (isset($_POST["deleteItems"])) {
 //                echo "<script>alert('Content: " . $_POST["deleteItems"] . "');</script>";
                 $shoppingListName = $_SESSION["selectedShoppingList"];
