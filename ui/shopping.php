@@ -142,7 +142,8 @@
                     </form>
                 </div>
                 <div class="col-xs-5">
-                    <h3>Add List: </h3>
+                    <br><br>
+                    <h4>Add List: </h4>
                     <form name="newListForm" action="shopping.php" method="POST" class="right">
                         <input type="text" name="newList" placeholder="Insert list name here">
                         <button class="btn btn-default">Submit</button>
