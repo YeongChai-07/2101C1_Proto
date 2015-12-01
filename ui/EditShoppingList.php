@@ -363,11 +363,8 @@
                     </div>
                     <table class="table" id="addList" onclick="displayList()">
         <?php
-        $queryShoppingListItems = "SELECT it.itemName, sli.shoppingListItemID, sli.shoppingListDesc, sli.shoppingListQty " .
-                "FROM `shoppinglistitem` AS sli INNER JOIN `items` AS it " .
-                "WHERE (it.itemName = sli.itemName) AND " .
-                "( sli.shoppingListID =(SELECT sl.shoppingListID FROM `shoppinglist` AS sl WHERE sl.shoppingListName = '" .
-                $_SESSION["selectedShoppingList"] . "') );";
+	$queryShoppingListItems = "SELECT sli.itemName, sli.shoppingListItemID, sli.shoppingListDesc, sli.shoppingListQty " .
+        	"FROM `shoppinglistitem` as sli WHERE sli.shoppingListID=(SELECT shoppingListID FROM shoppinglist WHERE shoppingListName='".$_SESSION["selectedShoppingList"]."')";
 
         $shoppingListItems_Data = mysqli_query($connection, $queryShoppingListItems, MYSQLI_STORE_RESULT);
 
