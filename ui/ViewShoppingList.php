@@ -11,7 +11,7 @@
 		function populateShoppingList_Items($shoppingListItems_Data)
 		{
 			$tableData_HTML = "";
-			echo '<script type="text/javascript">alert(\'ROWS: '. mysqli_num_rows($shoppingListItems_Data).'\');</script>';
+			//echo '<script type="text/javascript">alert(\'ROWS: '. mysqli_num_rows($shoppingListItems_Data).'\');</script>';
 			
 			//Encode the Table Header Row FIRST
 			$tableData_HTML.="\r\n    <tr>\r\n".
@@ -67,7 +67,7 @@
 			if (isset($_GET["list"])) {
 				$shoppingListName = $_GET["list"];
 				
-				echo "<script>alert('".$shoppingListName."');</script>";
+				//echo "<script>alert('".$shoppingListName."');</script>";
 				
 				$queryShopList_ID="SELECT sl.shoppingListID FROM `shoppinglist` AS sl WHERE sl.shoppingListName = '".
 									$shoppingListName."';";

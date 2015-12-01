@@ -421,7 +421,7 @@
                         //echo "<script type=\"text/javascript\">alert('".$emailAdd."');</script>;";
                         $queryItemList = "SELECT itemName FROM `items` WHERE email = '" . $emailAdd . "';";
                         $itemListData = mysqli_query($connection, $queryItemList, MYSQLI_STORE_RESULT);
-                        echo '<option value ="default">Choose or type </option>';
+                        echo '<option value ="default">Choose existing item </option>';
                         while ($rowData = mysqli_fetch_row($itemListData)) {
                             $itemName = $rowData[0];
                             echo "\r\n        <option value=\"" . $itemName . "\">" . $itemName . "</option>";
