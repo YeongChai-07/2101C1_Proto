@@ -358,7 +358,7 @@
                 <br/>
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h3>Shopping List</h3>
+                        <h3>Shopping List: <?php echo $_GET["list"] ?></h3>
                         <h4 style="float:right; color: black">Urgency date: <?php echo $urgency ?></h4>
                     </div>
                     <table class="table" id="addList" onclick="displayList()">
@@ -403,7 +403,6 @@
 
         <!-- Right Container -->
         <div class="container" id="container-add">
-            <h2 class="h2" id="h2-add"><?php echo $_GET["list"] ?></h2>
 
             <!--form name="newShoppingListItemForm" onsubmit="return checkEmptyInput();" method="post" role="form" -->
             <form name="newShoppingListItemForm" method="POST" role="form">
