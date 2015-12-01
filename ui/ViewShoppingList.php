@@ -38,10 +38,10 @@
 				    $tableData_HTML.="\r\n    <tr>\r\n".
 					"        <td>".$rowData['itemName']."</td>\r\n".
 					"        <td>\r\n".
-					"            <input type=\"text\" class=\"text-primary\" style=\"width:80px;\" value=\"".$rowData['shoppingListDesc']."\">\r\n".
+					"            <input type=\"text\" class=\"text-primary\" style=\"width:80px;\" disabled value=\"".$rowData['shoppingListDesc']."\">\r\n".
 					"        </td>\r\n".
 					"        <td>\r\n".
-					"            <input type=\"text\" class=\"text-primary\" style=\"width:55px;\" value=\"".$rowData['shoppingListQty']."\">\r\n".
+					"            <input type=\"text\" class=\"text-primary\" style=\"width:55px;\" disabled value=\"".$rowData['shoppingListQty']."\">\r\n".
 					"        </td>\r\n".
 					"        <td onclick=\"checked(this)\">\r\n".
 					"            <button type=\"button\" class=\"btn btn-default\">\r\n".
