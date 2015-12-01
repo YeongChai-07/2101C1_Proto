@@ -200,19 +200,17 @@
                                 $sql80 = "SELECT * FROM shoppinglistitem WHERE shoppingListID ='" . $listID . "' ";
                                 if ($result8 = mysqli_query($connection, $sql80)){
                                     while ($row11 = mysqli_fetch_assoc($result8)){
-                                        $itemID = $row11['itemID'];
-                                        $sql81 = "SELECT * FROM items WHERE itemID ='" . $itemID . "' ";
-                                        $result9 = mysqli_query($connection, $sql81);
-                                        $row12 = mysqli_fetch_assoc($result9);
-                                                echo '<tr><td>';
-                                                echo $row12['itemName'];
-                                                echo'</td><td>';
-                                                echo $row11['shoppingListQty'];
-                                                echo'</td><td>';
-                                                echo $row11['shoppingListDesc'];
-                                                echo '</td>';
-                                                echo '</tr>';
-                                                }
+										if($row11['shoppingListDesc']==NULL)
+											$row11['shoppingListDesc']='N/A';
+										echo '<tr><td>';
+										echo $row11['itemName'];
+										echo'</td><td>';
+										echo $row11['shoppingListQty'];
+										echo'</td><td>';
+										echo $row11['shoppingListDesc'];
+										echo '</td>';
+										echo '</tr>';
+										}
                                 }
                                 ?>
                                         </tbody>
