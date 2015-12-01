@@ -8,18 +8,19 @@
         $grpname = ($_POST["grpName"]);
         echo $newname;
         echo $grpname;
-        
-        $notexist = "SELECT * FROM groups WHERE groupName ='" . $grpname . "'AND email ='" . $newname . "' ";
-        if ($doexist = mysqli_query($connection, $notexist)){
-            while ($statement1 = mysqli_fetch_assoc($doexist)){
-              if ($statement1['email'] == $newname){
+        $deny = TRUE;
+        $sql1 = "SELECT * FROM groups";
+        if ($result1 = mysqli_query($connection, $sql1)){
+            while ($statement1 = mysqli_fetch_assoc($result1)){
+              if ($statement1['email'] == $newname AND $statement1['groupName'] == $grpname){
+                  $deny = FALSE;
                   echo "<script> alert('User already in group'); "
-            . "window.location.href='Groupinfo.php?id=$grpname'; </script>";
-                 // header('location: ../ui/GroupInfo.php?id='.$grpname);
+            .       "window.location.href='Groupinfo.php?id=$grpname'; </script>";        
               }  
             }
         }
         
+        if ($deny){
         $check = "SELECT * FROM user";
         if ($result = mysqli_query($connection, $check)){
             $checkDup = TRUE;
@@ -31,14 +32,16 @@
                     if ($statement = mysqli_prepare($connection, $sql)){
                         mysqli_stmt_bind_param($statement, 'sss', $newname, $grpname, $pending);
                         mysqli_stmt_execute($statement);
-                        header('location: ../ui/GroupInfo.php?id='.$grpname);
-                    }
-                    
+                        echo "<script> alert('User added'); "
+            .       "window.location.href='Groupinfo.php?id=$grpname'; </script>";
+                        //header('location: ../ui/GroupInfo.php?id='.$grpname);
+                    }                 
                 }
-
             }    
+        }    
         }
-
+        
+        
         if ($checkDup){
             echo "<script> alert('User does not exist'); "
             . "window.location.href='Groupinfo.php?id=$grpname'; </script>";
