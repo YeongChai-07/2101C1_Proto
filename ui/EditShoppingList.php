@@ -206,7 +206,8 @@
 							{
 								if (strtolower($statement['itemName']) == strtolower($newItem) AND $statement['email'] == $emailAdd){
 									$checkDup = FALSE;
-									echo "<script type=\"text/javascript\">alert(\"Item exists in item list\");</script>";
+                                                                        $selectedItem = $newItem;
+									//echo "<script type=\"text/javascript\">alert(\"Item exists in item list\");</script>";
 								}
 							}   
 						}
