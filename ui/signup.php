@@ -118,18 +118,8 @@
                     <label class="col-sm-3 control-label" for="email">Email</label>
                     <div class="col-sm-6">
                     <input class="form-control" type="text" id="email" name="email" 
-                        value="
-                        <?php
-                            if ($emailvalid){
-                                echo htmlspecialchars($email);
-                            }
-                        ?>" 
-                        placeholder="
-                        <?php
-                            if ($emailErr != ""){
-                                echo $emailErr;
-                            }
-                        ?>" 
+                        value="<?php if ($emailvalid){echo htmlspecialchars($email);}?>" 
+                        placeholder="<?php if ($emailErr != ""){echo $emailErr;}?>" 
                         required>
                     </div>
                     </div>
