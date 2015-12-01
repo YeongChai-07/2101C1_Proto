@@ -28,8 +28,8 @@
             $user = $_SESSION['email'];
         ?>
         <div class="container navContainSpace">
-            <h1 class="center">Current Items</h1>
             <div class="col-xs-6 col-md-5 center">
+                <h1>Current Items</h1>
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover">
                         <tr>
@@ -57,9 +57,10 @@
                 </div>
             </div>
             <div class="col-xs-6 col-md-3">
+                <br><br>
                 <!--Prototype scenario 2: Added new item.-->
                 <form name="newItemForm" action="InsertItemList.php" method="post" onsubmit="return checkEmptyItem();">
-                    <br>Add New Item:<br>
+                    <h4>Add New Item:</h4>
                     <input type="text" name="newItem" placeholder="Insert item name here">
                     <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
                 </form>
