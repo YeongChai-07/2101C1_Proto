@@ -236,15 +236,16 @@
 					}//End While
 					//IF none was found
 					if ($sameShopItem_Count == 0) {
-						if (empty($selectedQuantity)) {
-						   $selectedQuantity=1; //Just need to set to default quantity:1
-						} else if ((is_numeric( ($selectedQuantity) ) ) == FALSE) {
+						if ((is_numeric( ($selectedQuantity) ) ) == FALSE) {
 							echo "<script type=\"text/javascript\">alert(\"Your input for Quantity is non-numeric. Please enter a numeric value.\");</script>";	
 						} 
 	//                                        else if (empty($selectedDescription)) {
 	//                        echo "<script type=\"text/javascript\">alert(\"Your description can't be empty. Please enter a value.\");</script>";
 	//                    }
 						else {
+							if ($selectedQuantity<1) {
+						   		$selectedQuantity=1; //Just need to set to default quantity:1
+							}
 							//Now let's perform a INSERT to the DB
 							$sql = 'INSERT INTO `shoppinglistitem`(shoppingListID, itemName, shoppingListQty,
 							shoppingListDesc, is_Checked) VALUES(?, ?, ?, ?, ?);';
@@ -311,10 +312,13 @@
 
 
                     for ($i = 1; $i <= $numOfListItems; $i++) {
+                    	if((is_numeric($_POST["shopItem_Qty" . $i])==FALSE) || $_POST["shopItem_Qty" . $i]<1){
+			$_POST["shopItem_Qty" . $i] = 1;
+			}
                         $sql = "UPDATE `shoppinglistitem` " .
                                 "SET shoppingListDesc = '{$_POST["shopItem_DESC" . $i]}', shoppingListQty={$_POST["shopItem_Qty" . $i]} " .
                                 "WHERE shoppingListItemID = {$_POST["shopItemID" . $i]};";
-						$updateShopItem_Result = mysqli_query($connection, $sql);
+			$updateShopItem_Result = mysqli_query($connection, $sql);
                     }
 
                 }
