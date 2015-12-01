@@ -12,7 +12,7 @@
         $checkDup = TRUE;
         while ($statement = mysqli_fetch_assoc($result)) 
         {
-            if ($statement['itemName'] == $item AND $statement['email'] == $user){
+            if (strtolower($statement['itemName']) == strtolower($item) AND $statement['email'] == $user){
                 $checkDup = FALSE;
                 break;
             }
