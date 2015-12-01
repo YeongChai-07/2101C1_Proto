@@ -54,9 +54,6 @@
                         <li class="dropdown">
                             <a href="shopping.php" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <?php echo $_SESSION['email'] ?> <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-<!--                                <li><a href="ShoppingList.php"><span class="glyphicon glyphicon-picture"></span> Shopping</a></li>
-                                <li><a href="Settings.php"><span class="glyphicon glyphicon-wrench"></span> Settings</a></li>
-                                <li class="divider"><li>-->
                                 <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                             </ul>
                         </li>

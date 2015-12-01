@@ -167,7 +167,7 @@
                             "            <input type=\"text\" name=\"shopItem_Qty" . $itemCount . "\" class=\"text-primary text-qty\" value=\"" . $rowData['shoppingListQty'] . "\">\r\n" .
                             "        </td>\r\n" .
                             "        <td>\r\n" .
-                            "            <button class=\"btn-danger\" type=\"submit\" onclick=\"removeShoppingItem('" . $rowData['shoppingListDesc'] . "');\" value=\"" . $rowData['shoppingListDesc'] . "\">\r\n" .
+                            "            <button class=\"btn-danger\" type=\"submit\" onclick=\"removeShoppingItem('" . $rowData['shoppingListItemID'] . "');\" value=\"" . $rowData['shoppingListDesc'] . "\">\r\n" .
                             "            <span class=\"glyphicon glyphicon-remove\"></span>\r\n" .
                             "            </button>\r\n" .
                             "            <input type=\"hidden\" name=\"shopItemID" . $itemCount . "\" value=\"" . $rowData['shoppingListItemID'] . "\" />\r\n" .
@@ -288,9 +288,7 @@
                 if (!empty($_POST["deleteItems"])) {
                     //SQL for DELETION
                     $queryDel_ShopItem = "DELETE FROM `shoppinglistitem` " .
-                            "WHERE shoppingListDesc = '" . $toDeleteShopItem . "' " .
-                            "AND shoppingListID = (SELECT sl.shoppingListID FROM `shoppinglist` AS sl " .
-                            "WHERE sl.shoppingListName = '" . $shoppingListName . "');";
+                            "WHERE shoppingListItemID = '" . $toDeleteShopItem . "'";
 
                     $delResult = mysqli_query($connection, $queryDel_ShopItem);
 

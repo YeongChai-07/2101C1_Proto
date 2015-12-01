@@ -128,7 +128,7 @@
                 <table class="table" id="addList">
 				    <?php
 						    $queryShoppingListItems = "SELECT sli.itemName, sli.shoppingListItemID, sli.shoppingListDesc, sli.shoppingListQty " .
-        	"FROM `shoppinglistitem` as sli WHERE sli.shoppingListID=(SELECT shoppingListID FROM shoppinglist WHERE shoppingListName='".$_SESSION["selectedShoppingList"]."')";
+        	"FROM `shoppinglistitem` as sli WHERE sli.shoppingListID=(SELECT shoppingListID FROM shoppinglist WHERE shoppingListName='".$_GET["list"]."')";
 									
 							$shoppingListItems_Data = mysqli_query($connection, $queryShoppingListItems, MYSQLI_STORE_RESULT);
 							

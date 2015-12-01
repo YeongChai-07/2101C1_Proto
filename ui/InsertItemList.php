@@ -14,7 +14,8 @@
         {
             if (strtolower($statement['itemName']) == strtolower($item) AND $statement['email'] == $user){
                 $checkDup = FALSE;
-                break;
+                 echo "<script> alert('Item already in the list'); "
+            .       "window.location.href='ItemList.php'; </script>";    
             }
         
         }    
@@ -27,7 +28,7 @@
         mysqli_stmt_bind_param($statement, 'ss', $item, $user);
         mysqli_stmt_execute($statement);
     }
-    
-    }
     header('Location: ItemList.php');
+    }
+    
 ?>

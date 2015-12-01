@@ -195,29 +195,29 @@
                 $shoppingListName = $_SESSION["selectedShoppingList"];
                 if (!empty($_POST["newItem"])) {
                     $itemExist = FALSE;
-                     $newItem = $_POST["newItem"];
+                    $newItem = $_POST["newItem"];
                     $sql11 = "SELECT * FROM items";
-                    if ($result = mysqli_query($connection, $sql11)){
-                        while ($row11 = mysqli_fetch_assoc($result)){
-                            if ($row11['itemName'] == $newItem){
-                             $itemExist = TRUE;   
-                            } 
+                    if ($result = mysqli_query($connection, $sql11)) {
+                        while ($row11 = mysqli_fetch_assoc($result)) {
+                            if ($row11['itemName'] == $newItem) {
+                                $itemExist = TRUE;
+                            }
                         }
-                        if (!$itemExist){
-                          
-                    $sql22 = "INSERT INTO items (itemName, email) VALUES(?,?)";
-                    if ($statement = mysqli_prepare($connection, $sql22)) 
-                    {
-                        mysqli_stmt_bind_param($statement, 'ss', $newItem, $emailAdd);
-                        mysqli_stmt_execute($statement);
-                    }
-                    $selectedItem = $newItem; 
-                        }
-                    }}
-                
-                
+                        if (!$itemExist) {
 
-                //Fetch data from the ShoppingList Table
+                            $sql22 = "INSERT INTO items (itemName, email) VALUES(?,?)";
+                            if ($statement = mysqli_prepare($connection, $sql22)) {
+                                mysqli_stmt_bind_param($statement, 'ss', $newItem, $emailAdd);
+                                mysqli_stmt_execute($statement);
+                            }
+                            $selectedItem = $newItem;
+                        }
+                    }
+                }
+
+
+
+        //Fetch data from the ShoppingList Table
                 $queryShoppingList = "SELECT shoppingListID FROM `shoppinglist` WHERE shoppingListName ='" . $shoppingListName . "';";
                 $shoppingListData = mysqli_query($connection, $queryShoppingList, MYSQLI_STORE_RESULT);
 

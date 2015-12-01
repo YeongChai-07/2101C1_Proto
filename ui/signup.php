@@ -19,7 +19,7 @@
                 $pword1 = $pword2 = $email ="";
                 $pword1Err = $pword2Err = $emailErr = "";
                 $pword1valid = $pword2valid = $emailvalid = "";
-	
+                $pattern = "^[a-zA-Z0-9.!#$%&'*+/=?_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)^";
 		if ($_SERVER["REQUEST_METHOD"] == "POST") 
                 {
                     $pword1 = test_input($_POST["pword1"]);
@@ -44,8 +44,14 @@
                                     break;
 				}
                                 else{
-                                    $emailErr = "";
-                                    $emailvalid = true;
+                                    if (preg_match($pattern, $email) == 1) {
+                                        $emailvalid = true;
+                                        $emailErr = "";
+                                    }
+                                    else{
+                                        $emailvalid = false;
+                                        $emailErr = "Please use a correct email standard.";
+                                    }
 				}
                             }
 			}
