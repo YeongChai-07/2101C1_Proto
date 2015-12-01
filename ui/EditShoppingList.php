@@ -390,8 +390,8 @@
 
                     <div class="row">
                         <div class="col-sm-1"><h3 class="h3">By : </h3></div>
+                        <br />
                         <div class="col-sm-1" >
-                            <input id="datepick" size="20" name="deadline">
                             <input type="text" id="datepick" size="20" name="deadline" placeholder="Select Date">
                             <script type="text/javascript">$('#datepick').datepicker({ minDate: 0 });</script>
                         </div>
